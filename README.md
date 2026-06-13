@@ -1,2 +1,2 @@
-# Mantra-soalr
+# Mantra-solar
 Solar websites 
