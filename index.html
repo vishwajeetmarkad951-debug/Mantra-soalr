@@ -1,0 +1,571 @@
+ (cd "$(git rev-parse --show-toplevel)" && git apply --3way <<'EOF' 
+diff --git a/index.html b/index.html
+new file mode 100644
+index 0000000000000000000000000000000000000000..0a8c3f90046d009e4b33a674dd8455d37820502e
+--- /dev/null
++++ b/index.html
+@@ -0,0 +1,561 @@
++<!DOCTYPE html>
++<html lang="mr">
++<head>
++  <meta charset="UTF-8" />
++  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
++  <meta name="description" content="मंत्रा सोलार - संपूर्ण महाराष्ट्रासाठी विश्वसनीय इंजिनिअर-बॅक्ड सोलर इन्स्टॉलेशन. घरगुती सबसिडी, औद्योगिक नेट-मीटरिंग आणि प्रगत कृषी सोलर व्हीएफडी पंप सोल्यूशन्स." />
++  <title>मंत्रा सोलार | महाराष्ट्रातील अग्रगण्य सौर ऊर्जा सेवा</title>
++  <link rel="preconnect" href="https://fonts.googleapis.com" />
++  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
++  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
++
++  <style>
++    :root {
++      --primary: #ff8c00;
++      --primary-dark: #d96f00;
++      --secondary: #00a8ff;
++      --dark: #0a192f;
++      --dark-2: #10284c;
++      --muted: #607086;
++      --light: #f4f7f6;
++      --white: #fff;
++      --surface: #fffaf2;
++      --border: #e7edf3;
++      --success: #25d366;
++      --shadow: 0 20px 60px rgba(10, 25, 47, 0.12);
++      --shadow-hover: 0 28px 75px rgba(10, 25, 47, 0.18);
++      --radius: 24px;
++      --transition: 220ms ease;
++    }
++
++    * { box-sizing: border-box; }
++    html { scroll-behavior: smooth; }
++    body {
++      margin: 0;
++      color: #243042;
++      background: var(--light);
++      font-family: Poppins, system-ui, sans-serif;
++      line-height: 1.65;
++      overflow-x: hidden;
++    }
++
++    body::before {
++      content: "";
++      position: fixed;
++      inset: 0;
++      pointer-events: none;
++      z-index: -1;
++      background:
++        radial-gradient(circle at 8% 12%, rgba(255, 140, 0, 0.12), transparent 28%),
++        radial-gradient(circle at 90% 24%, rgba(0, 168, 255, 0.10), transparent 30%);
++    }
++
++    h1, h2, h3 {
++      color: var(--dark);
++      line-height: 1.15;
++      margin: 0 0 16px;
++    }
++
++    h1 { font-size: clamp(2.45rem, 6vw, 5.45rem); letter-spacing: -.055em; }
++    h2 { font-size: clamp(2rem, 4vw, 3.3rem); letter-spacing: -.035em; }
++    h3 { font-size: 1.25rem; }
++    p { margin: 0 0 18px; }
++    a { color: inherit; }
++
++    .skip-link {
++      position: absolute;
++      left: -999px;
++      top: 12px;
++      background: var(--dark);
++      color: #fff;
++      padding: 10px 14px;
++      z-index: 9999;
++    }
++    .skip-link:focus { left: 12px; }
++    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
++    .section-pad { padding: clamp(64px, 8vw, 110px) 6%; }
++
++    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 700ms ease, transform 700ms ease; }
++    .reveal.is-visible { opacity: 1; transform: translateY(0); }
++
++    .site-header {
++      position: sticky;
++      top: 0;
++      z-index: 1000;
++      background: rgba(255, 255, 255, 0.88);
++      backdrop-filter: blur(16px);
++      box-shadow: 0 10px 30px rgba(10, 25, 47, 0.08);
++    }
++
++    .progress-bar {
++      position: fixed;
++      top: 0;
++      left: 0;
++      height: 3px;
++      width: 0%;
++      z-index: 2000;
++      background: linear-gradient(90deg, var(--primary), var(--secondary));
++      box-shadow: 0 0 18px rgba(255, 140, 0, 0.55);
++    }
++
++    .navbar {
++      display: flex;
++      align-items: center;
++      justify-content: space-between;
++      gap: 24px;
++      padding: 14px 6%;
++      max-width: 1440px;
++      margin: auto;
++    }
++    .brand {
++      display: flex;
++      align-items: center;
++      gap: 10px;
++      font-weight: 800;
++      text-decoration: none;
++      color: var(--dark);
++      font-size: 1.25rem;
++    }
++    .brand strong, .brand-mark { color: var(--primary); }
++    .brand-mark {
++      display: grid;
++      place-items: center;
++      width: 38px;
++      height: 38px;
++      border-radius: 50%;
++      background: #fff2dc;
++      animation: sunPulse 2.8s ease-in-out infinite;
++    }
++    .nav-menu {
++      display: flex;
++      align-items: center;
++      gap: 4px;
++      list-style: none;
++      margin: 0;
++      padding: 0;
++    }
++    .nav-menu a {
++      display: block;
++      text-decoration: none;
++      font-weight: 700;
++      font-size: .92rem;
++      padding: 10px 14px;
++      border-radius: 999px;
++      color: var(--dark);
++      transition: background var(--transition), color var(--transition), transform var(--transition);
++    }
++    .nav-menu a:hover, .nav-menu a:focus {
++      background: #fff2dc;
++      color: var(--primary-dark);
++      transform: translateY(-2px);
++    }
++    .menu-toggle {
++      display: none;
++      background: none;
++      border: 0;
++      padding: 8px;
++      cursor: pointer;
++    }
++    .menu-toggle span:not(.sr-only) {
++      display: block;
++      width: 26px;
++      height: 2px;
++      background: var(--dark);
++      margin: 5px;
++      transition: transform var(--transition), opacity var(--transition);
++    }
++    .menu-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
++    .menu-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
++    .menu-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
++
++    .btn {
++      display: inline-flex;
++      align-items: center;
++      justify-content: center;
++      border: 0;
++      border-radius: 999px;
++      background: linear-gradient(135deg, var(--primary), #ffb000);
++      color: #fff;
++      font-weight: 800;
++      text-decoration: none;
++      padding: 15px 28px;
++      cursor: pointer;
++      box-shadow: 0 12px 24px rgba(255, 140, 0, 0.28);
++      transition: transform var(--transition), box-shadow var(--transition), filter var(--transition);
++      position: relative;
++      overflow: hidden;
++    }
++    .btn::after {
++      content: "";
++      position: absolute;
++      inset: 0;
++      transform: translateX(-120%);
++      background: linear-gradient(90deg, transparent, rgba(255,255,255,.35), transparent);
++      transition: transform 600ms ease;
++    }
++    .btn:hover { transform: translateY(-3px); box-shadow: 0 18px 36px rgba(255, 140, 0, 0.35); filter: saturate(1.05); }
++    .btn:hover::after { transform: translateX(120%); }
++    .btn-secondary { background: var(--white); color: var(--dark); box-shadow: none; }
++    .btn-small { padding: 10px 18px; font-size: .9rem; }
++
++    .hero {
++      min-height: calc(100vh - 76px);
++      display: grid;
++      grid-template-columns: minmax(0, 1.2fr) minmax(320px, .8fr);
++      align-items: center;
++      gap: 48px;
++      background:
++        radial-gradient(circle at 70% 20%, rgba(255, 176, 0, 0.35), transparent 30%),
++        linear-gradient(120deg, rgba(10, 25, 47, 0.92), rgba(10, 25, 47, 0.72)),
++        url('https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1200') center/cover;
++      color: #fff;
++      position: relative;
++      overflow: hidden;
++    }
++    .hero::after {
++      content: "";
++      position: absolute;
++      width: 360px;
++      height: 360px;
++      right: -110px;
++      top: 110px;
++      border-radius: 50%;
++      border: 1px solid rgba(255,255,255,.22);
++      background: rgba(255,255,255,.06);
++      animation: floatBlob 8s ease-in-out infinite;
++    }
++    .hero-content, .hero-card { position: relative; z-index: 1; }
++    .hero h1, .hero h2 { color: #fff; }
++    .hero-copy { max-width: 760px; font-size: 1.2rem; color: #e8eef5; }
++    .eyebrow { text-transform: uppercase; letter-spacing: .16em; font-size: .78rem; font-weight: 800; color: var(--primary); margin-bottom: 10px; }
++    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin: 28px 0; }
++
++    .stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin: 42px 0 0; }
++    .stats div, .glass-card {
++      background: rgba(255, 255, 255, 0.12);
++      border: 1px solid rgba(255, 255, 255, 0.22);
++      border-radius: var(--radius);
++      padding: 20px;
++      backdrop-filter: blur(10px);
++      transition: transform var(--transition), background var(--transition), border-color var(--transition);
++    }
++    .stats div:hover, .glass-card:hover { transform: translateY(-6px); background: rgba(255,255,255,.18); border-color: rgba(255,255,255,.4); }
++    .stats dt { font-size: 1.5rem; font-weight: 800; color: #fff; }
++    .stats dd { margin: 0; color: #dbe7f5; font-size: .9rem; }
++    .hero-card { min-height: 420px; display: flex; align-items: end; }
++    .glass-card { padding: 30px; color: #fff; box-shadow: var(--shadow); }
++    .badge, .blog-tag { display: inline-flex; padding: 6px 12px; border-radius: 999px; background: #fff2dc; color: var(--primary-dark); font-weight: 800; font-size: .78rem; margin-bottom: 14px; }
++
++    .section-heading { text-align: center; max-width: 780px; margin: 0 auto 44px; }
++    .card-grid, .gallery-grid, .timeline { display: grid; gap: 24px; }
++    .three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
++    .two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
++
++    .service-card, .blog-card, blockquote, .calc-box, .contact-form, .timeline article {
++      background: rgba(255, 255, 255, 0.94);
++      border: 1px solid var(--border);
++      border-radius: var(--radius);
++      padding: 28px;
++      box-shadow: 0 10px 35px rgba(10, 25, 47, 0.06);
++      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
++    }
++    .service-card:hover, .blog-card:hover, blockquote:hover, .timeline article:hover {
++      transform: translateY(-9px);
++      box-shadow: var(--shadow-hover);
++      border-color: rgba(255, 140, 0, 0.28);
++    }
++    .service-card span { font-size: 2rem; display: block; margin-bottom: 12px; transition: transform var(--transition); }
++    .service-card:hover span { transform: scale(1.14) rotate(-4deg); }
++
++    .calculator-section { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: center; background: var(--surface); }
++    label { display: grid; gap: 8px; font-weight: 700; color: var(--dark); margin-bottom: 12px; }
++    input, select, textarea { width: 100%; padding: 14px 16px; border: 1px solid #d6dee8; border-radius: 14px; font: inherit; background: #fff; margin-bottom: 16px; transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition); }
++    input:focus, select:focus, textarea:focus { outline: 3px solid rgba(0, 168, 255, 0.18); border-color: var(--secondary); transform: translateY(-1px); }
++    .calc-result { display: block; margin-top: 18px; padding: 18px; border-radius: 16px; background: #eef8ff; color: var(--dark); font-weight: 700; line-height: 1.6; border: 1px solid rgba(0,168,255,.18); }
++    .calc-result.error { background: #ffebeb; color: #cc0000; border-color: rgba(204,0,0,.2); }
++
++    .timeline { grid-template-columns: repeat(4, minmax(0, 1fr)); counter-reset: step; }
++    .timeline strong { color: var(--primary); font-size: 1.6rem; display: block; margin-bottom: 8px; }
++
++    .gallery { background: #fff; }
++    .gallery-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
++    .gallery figure { position: relative; min-height: 300px; margin: 0; overflow: hidden; border-radius: var(--radius); box-shadow: var(--shadow); isolation: isolate; }
++    .gallery figure::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, transparent 45%, rgba(10,25,47,.68)); z-index: 1; opacity: .8; transition: opacity var(--transition); }
++    .gallery img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; transition: transform .55s ease, filter .55s ease; }
++    .gallery figure:hover img { transform: scale(1.1); filter: saturate(1.12); }
++    .gallery figure:hover::after { opacity: 1; }
++    figcaption { position: absolute; left: 18px; bottom: 18px; background: rgba(10, 25, 47, 0.88); color: #fff; border-radius: 999px; padding: 8px 14px; font-weight: 800; z-index: 2; }
++
++    .testimonials { background: var(--dark); }
++    .testimonials h2 { color: #fff; }
++    .stars { color: var(--primary); font-size: 1.2rem; margin-bottom: 8px; }
++    .faq-list { max-width: 920px; margin: 0 auto; }
++    details { background: #fff; border-radius: 18px; border: 1px solid var(--border); padding: 20px; margin-bottom: 12px; transition: box-shadow var(--transition), transform var(--transition); }
++    details:hover, details[open] { box-shadow: 0 16px 36px rgba(10, 25, 47, 0.08); transform: translateY(-2px); }
++    summary { cursor: pointer; font-weight: 800; color: var(--dark); outline: none; }
++    details p { margin: 14px 0 0; color: var(--muted); }
++
++    .blog-card a { color: var(--primary-dark); font-weight: 800; text-decoration: none; }
++    .blog-card a:hover { text-decoration: underline; }
++
++    .contact { display: grid; grid-template-columns: .9fr 1.1fr; gap: 34px; background: linear-gradient(135deg, var(--dark), var(--dark-2)); color: #dbe7f5; }
++    .contact-info h2 { color: #fff; }
++    .contact-info ul { list-style: none; padding: 0; margin: 24px 0 0; display: grid; gap: 14px; }
++    .contact-info a { text-decoration: none; }
++    .contact-info a:hover { color: var(--primary); }
++    .contact-form { background: #fff; }
++    .contact-form .btn { width: 100%; margin-top: 12px; }
++
++    .whatsapp { position: fixed; right: 24px; bottom: 24px; width: 62px; height: 62px; display: grid; place-items: center; border-radius: 50%; background: var(--success); color: #fff; text-decoration: none; font-size: 2rem; font-weight: 800; box-shadow: var(--shadow); z-index: 999; transition: transform var(--transition), box-shadow var(--transition); animation: whatsappPulse 2.8s infinite; }
++    .whatsapp:hover { transform: scale(1.08) rotate(6deg); box-shadow: 0 20px 44px rgba(37, 211, 102, .35); }
++    .footer { text-align: center; background: #050c16; color: #dbe7f5; padding: 38px 6%; }
++    .footer strong { color: var(--primary); font-size: 1.4rem; }
++
++    @keyframes sunPulse { 0%, 100% { box-shadow: 0 0 0 rgba(255,140,0,0); transform: rotate(0deg); } 50% { box-shadow: 0 0 0 9px rgba(255,140,0,.12); transform: rotate(12deg); } }
++    @keyframes floatBlob { 0%, 100% { transform: translate3d(0,0,0) scale(1); } 50% { transform: translate3d(-24px,18px,0) scale(1.06); } }
++    @keyframes whatsappPulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(37,211,102,.34), var(--shadow); } 50% { box-shadow: 0 0 0 12px rgba(37,211,102,0), var(--shadow); } }
++
++    @media (max-width: 900px) {
++      .menu-toggle { display: block; }
++      .nav-menu { position: absolute; left: 6%; right: 6%; top: 72px; display: none; flex-direction: column; align-items: stretch; background: #fff; border: 1px solid var(--border); border-radius: 18px; padding: 12px; box-shadow: var(--shadow); }
++      .nav-menu.open { display: flex; }
++      .nav-cta { display: none; }
++      .hero, .calculator-section, .contact { grid-template-columns: 1fr; }
++      .hero-card { min-height: auto; }
++      .three, .two, .timeline, .gallery-grid { grid-template-columns: 1fr; }
++      .stats { grid-template-columns: 1fr; }
++      .section-pad { padding-left: 5%; padding-right: 5%; }
++      h1 { letter-spacing: -.035em; }
++    }
++
++    @media (prefers-reduced-motion: reduce) {
++      *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
++      .reveal { opacity: 1; transform: none; }
++    }
++  </style>
++</head>
++<body>
++  <div class="progress-bar" id="progressBar" aria-hidden="true"></div>
++  <a class="skip-link" href="#main">Skip to content</a>
++
++  <header class="site-header" id="home">
++    <nav class="navbar" aria-label="Primary navigation">
++      <a href="#home" class="brand" aria-label="Mantra Solar home">
++        <span class="brand-mark">☀</span>
++        <span>मंत्रा <strong>सोलार</strong></span>
++      </a>
++      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="nav-menu">
++        <span></span><span></span><span></span>
++        <span class="sr-only">Menu</span>
++      </button>
++      <ul class="nav-menu" id="nav-menu">
++        <li><a href="#services">आमच्या सेवा</a></li>
++        <li><a href="#calculator">बचत कॅल्क्युलेटर</a></li>
++        <li><a href="#projects">यशस्वी प्रकल्प</a></li>
++        <li><a href="#blog">ब्लॉग</a></li>
++        <li><a href="#faq">प्रश्नमंजुषा</a></li>
++        <li><a href="#contact">संपर्क केंद्र</a></li>
++      </ul>
++      <a class="btn btn-small nav-cta" href="#contact">मोफत कोट मिळवा</a>
++    </nav>
++  </header>
++
++  <main id="main">
++    <section class="hero section-pad">
++      <div class="hero-content reveal">
++        <p class="eyebrow">• इंजिनिअरिंग अचूकता</p>
++        <h1>संपूर्ण महाराष्ट्रात वीज बिल करा झिरो.</h1>
++        <p class="hero-copy">महाराष्ट्रातील घरे, कारखाने आणि शेतीसाठी प्रगत TOPCon व Bifacial तंत्रज्ञानासह सर्वोत्कृष्ट सोलर इन्स्टॉलेशन.</p>
++        <div class="hero-actions">
++          <a class="btn" href="#contact">मोफत साईट सर्वे बुक करा</a>
++          <a class="btn btn-secondary" href="#calculator">तुमची बचत मोजा</a>
++        </div>
++        <dl class="stats" aria-label="Company highlights">
++          <div><dt>४००+</dt><dd>आनंदी ग्राहक</dd></div>
++          <div><dt>१००%</dt><dd>बँक लोन उपलब्ध</dd></div>
++          <div><dt>₹७८,०००</dt><dd>थेट सरकारी सबसिडी</dd></div>
++        </dl>
++      </div>
++      <div class="hero-card reveal" aria-label="Solar installation highlights">
++        <div class="glass-card">
++          <span class="badge">MSEDCL Empanelled Vendor</span>
++          <h2>30 वर्षांची खात्रीशीर उर्जा मुक्ती</h2>
++          <p>महाराष्ट्राच्या हवामानाला तोंड देणारे हॉट-डिप गॅल्व्हनाइज्ड (HDG) स्ट्रक्चर आणि अचूक शॅडो एनालिसिस.</p>
++        </div>
++      </div>
++    </section>
++
++    <section class="section-pad services reveal" id="services">
++      <div class="section-heading">
++        <p class="eyebrow">Our Specialized Domains</p>
++        <h2>आमची प्रगत सोलर सोल्यूशन्स</h2>
++        <p>महाराष्ट्रातील प्रत्येक ग्राहकाच्या गरजेनुसार कस्टमाइज्ड इंजिनिअरिंग डिझाइन.</p>
++      </div>
++      <div class="card-grid three">
++        <article class="service-card"><span>🏠</span><h3>घरगुती सोलर (Residential)</h3><p>ऑन-ग्रिड सिस्टीम, महावितरण नेट-मीटरिंग आणि पीएम-सूर्य घर योजनेच्या सबसिडी मंजुरीची संपूर्ण जबाबदारी आमची.</p></article>
++        <article class="service-card"><span>🏭</span><h3>औद्योगिक व व्यावसायिक (C&I)</h3><p>कारखाने, हॉस्पिटल्स आणि कमर्शियल कॉम्प्लेक्ससाठी Accelerated Depreciation टॅक्स सवलतीसह वीज बिलात मोठी कपात.</p></article>
++        <article class="service-card"><span>🚜</span><h3>कृषी सोलर सोल्यूशन्स (Agri VFD)</h3><p>लोड शेडिंग आणि लो-व्होल्टेजचा त्रास संपवा! विहीर व बोरवेलसाठी प्रगत सोलर व्हीएफडी पंप कंट्रोलर.</p></article>
++      </div>
++    </section>
++
++    <section class="section-pad calculator-section reveal" id="calculator">
++      <div class="calculator-copy">
++        <p class="eyebrow">Smart Savings</p>
++        <h2>तुमच्या विजेची बचत तपासा</h2>
++        <p>तुमचे मासिक वीज बिल प्रविष्ट करा आणि महाराष्ट्रातील टॅरिफ स्लॅबनुसार आवश्यक क्षमता व सबसिडीचा प्राथमिक अंदाज मिळवा.</p>
++      </div>
++      <div class="calc-box">
++        <label for="billAmount">मासिक वीज बिल रक्कम (₹)</label>
++        <input type="number" id="billAmount" min="1" inputmode="numeric" placeholder="उदा. ३०००" />
++        <button class="btn" type="button" id="calculateBtn">बचत तपासा</button>
++        <output id="calcResult" class="calc-result" aria-live="polite"></output>
++      </div>
++    </section>
++
++    <section class="section-pad process reveal">
++      <div class="section-heading"><p class="eyebrow">Our Workflow</p><h2>इन्स्टॉलेशनचे ४ सोपे टप्पे</h2></div>
++      <div class="timeline">
++        <article><strong>०१</strong><h3>तांत्रिक साईट सर्वे</h3><p>छताची क्षमता, दिशा आणि सावलीचे अचूक गणित.</p></article>
++        <article><strong>०२</strong><h3>सिस्टीम इंजिनिअरिंग</h3><p>ब्रँडेड साहित्य आणि विजेच्या लोकभारानुसार योग्य डिझाईन.</p></article>
++        <article><strong>०३</strong><h3>सुरक्षित इन्स्टॉलेशन</h3><p>Dedicated अर्थिंग, AC/DC सुरक्षा बॉक्स आणि मजबूत फिटिंग.</p></article>
++        <article><strong>०४</strong><h3>नेट-मीटरिंग व सबसिडी</h3><p>MSEDCL प्रक्रिया आणि थेट बँक खात्यात सबसिडी मार्गदर्शन.</p></article>
++      </div>
++    </section>
++
++    <section class="section-pad gallery reveal" id="projects">
++      <div class="section-heading"><p class="eyebrow">Proven Track Record</p><h2>महाराष्ट्रातील यशस्वी प्रकल्प</h2></div>
++      <div class="gallery-grid">
++        <figure><img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=900" alt="औद्योगिक सोलर" loading="lazy"><figcaption>औद्योगिक • कारखाने</figcaption></figure>
++        <figure><img src="https://images.unsplash.com/photo-1613665813446-82a78c468a1d?w=900" alt="व्यावसायिक सोलर" loading="lazy"><figcaption>व्यावसायिक कॉम्प्लेक्स</figcaption></figure>
++        <figure><img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?w=900" alt="घरगुती ऑन-ग्रिड सोलर" loading="lazy"><figcaption>घरगुती • रेसिडेन्शियल</figcaption></figure>
++      </div>
++    </section>
++
++    <section class="section-pad testimonials reveal">
++      <div class="section-heading"><p class="eyebrow">Customer Voice</p><h2>ग्राहकांचे अनुभव</h2></div>
++      <div class="card-grid two">
++        <blockquote><div class="stars">★★★★★</div><p>“इंजिनिअर्सच्या टीमने काम केल्यामुळे वायरिंग अत्यंत सुरक्षित आणि नीटनेटकी झाली आहे. बिलात मोठी बचत होत आहे.”</p><cite>— श्री. देशमुख, महाराष्ट्र</cite></blockquote>
++        <blockquote><div class="stars">★★★★★</div><p>“कारखान्याच्या मेटल शेडवर वॉटरप्रूफिंग करून मजबूत स्ट्रक्चर बसवले. महावितरणची नेट-मीटरिंग प्रोसेस त्यांनीच करून दिली.”</p><cite>— इंडस्ट्रियल युझर, एमआयडीसी बेल्ट</cite></blockquote>
++      </div>
++    </section>
++
++    <section class="section-pad blog reveal" id="blog">
++      <div class="section-heading"><p class="eyebrow">Solar Knowledge</p><h2>ब्लॉग: योग्य निर्णयासाठी माहिती</h2><p>सोलर घेण्यापूर्वी ग्राहकांनी लक्षात ठेवावेत असे महत्त्वाचे मुद्दे.</p></div>
++      <div class="card-grid three">
++        <article class="blog-card"><span class="blog-tag">Technology</span><h3>TOPCon आणि Bifacial पॅनेल का निवडावे?</h3><p>नवीन तंत्रज्ञान कमी जागेत जास्त जनरेशन देण्यास मदत करते, त्यामुळे दीर्घकालीन ROI सुधारू शकतो.</p><a href="#contact">तज्ज्ञ सल्ला घ्या →</a></article>
++        <article class="blog-card"><span class="blog-tag">Finance</span><h3>सबसिडी आणि लोन प्रोसेस कशी चालते?</h3><p>योग्य कागदपत्रे, नेट-मीटरिंग आणि पोर्टल अपडेट्स वेळेत पूर्ण केल्यास ग्राहकाला प्रक्रिया सोपी होते.</p><a href="#faq">FAQ वाचा →</a></article>
++        <article class="blog-card"><span class="blog-tag">Maintenance</span><h3>सोलर सिस्टमची देखभाल कशी करावी?</h3><p>नियमित पॅनेल क्लीनिंग, इन्व्हर्टर मॉनिटरिंग आणि सावली तपासणी केल्यास generation स्थिर राहते.</p><a href="#projects">प्रकल्प पहा →</a></article>
++      </div>
++    </section>
++
++    <section class="section-pad faq reveal" id="faq">
++      <div class="section-heading"><p class="eyebrow">Frictionless Knowledge</p><h2>नेहमी विचारले जाणारे प्रश्न</h2></div>
++      <div class="faq-list">
++        <details><summary>मंत्रा सोलर संपूर्ण महाराष्ट्रात सेवा देते का?</summary><p>होय, आमचे मुख्य कार्यालय मंठा चौफुली, जालना येथे असले तरी आमचे नेटवर्क आणि टेक्निकल इन्स्टॉलेशन टीम संपूर्ण महाराष्ट्रभर कार्यरत आहे.</p></details>
++        <details><summary>सबसिडी मिळायला किती दिवस लागतात?</summary><p>इन्स्टॉलेशन पूर्ण होऊन महावितरणचे नेट-मीटर सुरू झाल्यानंतर साधारण 30 ते 45 कार्यदिवसांत सबसिडी प्रक्रिया पूर्ण होऊ शकते.</p></details>
++        <details><summary>औद्योगिक कंपन्यांना सोलरचा काय फायदा होतो?</summary><p>औद्योगिक ग्राहकांना वीज बिलात बचत, कर नियोजन आणि दीर्घकालीन ऊर्जा खर्चात स्थिरता मिळू शकते.</p></details>
++      </div>
++    </section>
++
++    <section class="contact section-pad reveal" id="contact">
++      <div class="contact-info">
++        <p class="eyebrow">Get in Touch</p>
++        <h2>आजच सौर क्रांतीत सामील व्हा!</h2>
++        <p>तुमचे विजेचे बिल पाठवा आणि आमचे इलेक्ट्रिकल इंजिनिअर्स तुमच्या जागेची तपासणी करून योग्य आराखडा तयार करतील.</p>
++        <ul>
++          <li>📍 मुख्य कार्यालय: मंठा चौफुली, जालना - ४३१२०३, महाराष्ट्र.</li>
++          <li>📞 हॉटलाईन: <a href="tel:+919226198204">+९१ ९२२६१९८२०४</a></li>
++          <li>📧 अधिकृत ई-मेल: <a href="mailto:info@mantrasolar.in">info@mantrasolar.in</a></li>
++        </ul>
++      </div>
++      <form class="contact-form" action="https://formspree.io/f/mdaakyrb" method="POST">
++        <label>तुमचे नाव<input type="text" name="name" required autocomplete="name" /></label>
++        <label>मोबाईल नंबर<input type="tel" name="phone" required autocomplete="tel" pattern="[0-9+\-\s]{10,15}" /></label>
++        <label>तुमचे लोकेशन (शहर/गाव)<input type="text" name="location" required placeholder="उदा. जालना, संभाजीनगर, पुणे" /></label>
++        <label>सिस्टम श्रेणी<select name="kw_interest" required><option value="">निवडा</option><option value="Residential">घरगुती (Residential)</option><option value="Commercial">व्यावसायिक / कारखाने</option><option value="Agricultural">कृषी सोलर VFD</option></select></label>
++        <label>अतिरिक्त माहिती / प्रश्न<textarea name="message" rows="4" placeholder="तुमचा सध्याचा वीज भार किंवा पत्ता..."></textarea></label>
++        <button class="btn" type="submit">माहिती सबमिट करा</button>
++      </form>
++    </section>
++  </main>
++
++  <a href="https://wa.me/919226198204" class="whatsapp" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">✆</a>
++
++  <footer class="footer">
++    <strong>MANTRA SOLAR</strong>
++    <p>&copy; २०२६ मंत्रा सोलार | संपूर्ण महाराष्ट्रासाठी सुरक्षित सौर उर्जा सोल्यूशन्स</p>
++  </footer>
++
++  <script>
++    const menuToggle = document.querySelector('.menu-toggle');
++    const navMenu = document.querySelector('#nav-menu');
++    const progressBar = document.querySelector('#progressBar');
++    const revealItems = document.querySelectorAll('.reveal');
++
++    menuToggle?.addEventListener('click', () => {
++      const isOpen = navMenu.classList.toggle('open');
++      menuToggle.setAttribute('aria-expanded', String(isOpen));
++    });
++
++    navMenu?.addEventListener('click', (event) => {
++      if (event.target instanceof HTMLAnchorElement) {
++        navMenu.classList.remove('open');
++        menuToggle?.setAttribute('aria-expanded', 'false');
++      }
++    });
++
++    const observer = new IntersectionObserver((entries) => {
++      entries.forEach((entry) => {
++        if (entry.isIntersecting) {
++          entry.target.classList.add('is-visible');
++          observer.unobserve(entry.target);
++        }
++      });
++    }, { threshold: 0.16 });
++
++    revealItems.forEach((item) => observer.observe(item));
++
++    function updateProgress() {
++      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
++      const progress = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
++      progressBar.style.width = `${Math.min(progress, 100)}%`;
++    }
++
++    window.addEventListener('scroll', updateProgress, { passive: true });
++    updateProgress();
++
++    const billInput = document.querySelector('#billAmount');
++    const calculateBtn = document.querySelector('#calculateBtn');
++    const calcResult = document.querySelector('#calcResult');
++    const currency = new Intl.NumberFormat('en-IN');
++
++    function calculateSolar() {
++      const bill = Number(billInput.value);
++
++      if (!Number.isFinite(bill) || bill <= 0) {
++        calcResult.textContent = 'कृपया वैध मासिक वीज बिल रक्कम प्रविष्ट करा.';
++        calcResult.classList.add('error');
++        billInput.focus();
++        return;
++      }
++
++      const systemSize = Math.max(1, Math.ceil(bill / 800));
++      const annualSaving = bill * 12;
++      const subsidy = systemSize === 1 ? 30000 : systemSize === 2 ? 60000 : 78000;
++
++      calcResult.classList.remove('error');
++      calcResult.innerHTML = `
++        ✅ <strong>अंदाजे क्षमता:</strong> ${systemSize} kW<br>
++        💰 <strong>वार्षिक बचत:</strong> ₹${currency.format(annualSaving)}<br>
++        🎁 <strong>संभाव्य सरकारी अनुदान:</strong> ₹${currency.format(subsidy)}<br>
++        <small>टीप: अंतिम अंदाज site survey, sanctioned load आणि local net-metering नियमांवर अवलंबून असतो.</small>
++      `;
++    }
++
++    calculateBtn?.addEventListener('click', calculateSolar);
++    billInput?.addEventListener('keydown', (event) => {
++      if (event.key === 'Enter') calculateSolar();
++    });
++  </script>
++</body>
++</html>
+ 
+EOF
+)
