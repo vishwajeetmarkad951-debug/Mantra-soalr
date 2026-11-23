@@ -26,8 +26,8 @@ Mantra Solar कडून मोफत कोटेशन आणि साइट
 <label>Marathi Voiceover Audio (MP3/WAV)</label><input id="voice" type="file" accept="audio/*"><div class="filehint">तयार केलेला Marathi voiceover निवडा. आवाजाचा ट्रॅक व्हिडिओसोबत रेकॉर्ड होईल.</div>
 <label>Background Music (MP3/WAV)</label><input id="music" type="file" accept="audio/*"><div class="filehint">हलके instrumental music निवडा. Export करताना आवाज कमी ठेवा.</div>
 <label>Mantra Solar Logo (ऐच्छिक)</label><input id="logo" type="file" accept="image/*">
-<div class="btns"><button id="build">Scenes तयार करा</button><button id="downloadScript" class="secondary">Script TXT</button></div>
-<p class="hint"><b>महत्त्वाचे:</b> हा browser-based animated video maker आहे. यात Reference-inspired cinematic 2.5D canvas animation तयार होते; photorealistic AI-generated 3D footage नाही. Voiceover आणि music फाइल तुम्ही upload करायची आहे. Export WebM मध्ये होतो; MP4 साठी नंतर converter वापरावा लागेल. Android Chrome मध्ये export करताना पेज उघडे ठेवा आणि स्क्रीन लॉक करू नका.</p>
+<div class="btns"><button id="build">Scenes तयार करा</button><button id="downloadScript" class="secondary">Script TXT</button><a href="https://github.com/vishwajeetmarkad951-debug/Mantra-soalr/actions/workflows/render-mantra-solar-mp4.yml" target="_blank" rel="noopener" style="display:inline-block;padding:11px 15px;border-radius:24px;background:#f07827;color:#fff;text-decoration:none;font-size:13px;font-weight:800">MP4 Render (HyperFrames)</a></div>
+<p class="hint"><b>MP4 Export:</b> MP4 Render (HyperFrames) वर टॅप करा → GitHub Actions मध्ये workflow उघडा → Run workflow → Script आणि seconds per scene भरा → Run workflow. पूर्ण झाल्यावर run मधील Artifacts मधून MP4 डाउनलोड करा. GitHub Actions मध्ये rendering होते; त्यामुळे फोनवर Node.js/FFmpeg install करावे लागत नाही. Browser मधील Video Export हा WebM preview export आहे.</p>
 </section></main>
 <script>
 const c=document.getElementById('canvas'),ctx=c.getContext('2d',{alpha:true}),$=id=>document.getElementById(id);let scenes=[],duration=6,playing=false,started=0,elapsed=0,raf=0,recorder=null,recorded=[],logoImg=null;
