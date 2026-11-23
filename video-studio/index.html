@@ -1,53 +1,74 @@
 <!doctype html>
-<html lang="mr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Mantra Solar Auto Video Maker</title>
+<html lang="mr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#11131a"><title>Mantra Solar 3D + Motion Video Maker</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700;900&display=swap');
-:root{--gold:#f2a33b;--dark:#171717}*{box-sizing:border-box}body{margin:0;background:#101114;color:#f7f7f7;font-family:'Noto Sans Devanagari',Arial,sans-serif}header{padding:15px 18px;background:#202126;display:flex;justify-content:space-between;align-items:center}header b{color:var(--gold);letter-spacing:1px}.wrap{max-width:1050px;margin:auto;padding:16px;display:grid;grid-template-columns:minmax(260px,420px) 1fr;gap:18px}.stage{width:100%;aspect-ratio:9/16;background:#f5f0df;border-radius:14px;overflow:hidden;box-shadow:0 12px 35px #0008}.stage canvas{width:100%;height:100%;display:block}.panel{background:#202126;border:1px solid #393a40;border-radius:14px;padding:16px;height:max-content}.panel h2{margin:0 0 8px}.hint{font-size:12px;color:#b9bbc3;line-height:1.6}.panel label{display:block;font-size:13px;color:#d0d0d0;margin:13px 0 5px}.panel textarea,.panel input{width:100%;border:1px solid #50515a;background:#131418;color:white;border-radius:8px;padding:10px;font:inherit}.panel textarea{min-height:210px;line-height:1.7}.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}button{border:0;border-radius:25px;padding:11px 15px;background:var(--gold);color:#171717;font-weight:800}button.secondary{background:#444650;color:white}button:disabled{opacity:.5}.meter{height:4px;background:#4a4b50;margin-top:12px;border-radius:4px;overflow:hidden}.meter i{display:block;height:100%;width:0;background:var(--gold)}.status{font-size:12px;color:#f2c47f;margin-top:8px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.grid label{margin-top:8px}@media(max-width:720px){.wrap{grid-template-columns:1fr;max-width:480px}.stage{width:min(100%,360px);margin:auto}.panel{padding:14px}}
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800;900&display=swap');
+:root{--gold:#f6b544;--orange:#f07827;--ink:#151820;--muted:#aeb4c2}*{box-sizing:border-box}body{margin:0;background:#0d0f14;color:#f7f8fb;font-family:'Noto Sans Devanagari',Arial,sans-serif}header{padding:15px 18px;background:#191c24;border-bottom:1px solid #303440;display:flex;justify-content:space-between;align-items:center;gap:8px}header b{color:var(--gold);letter-spacing:1px}header span{font-size:12px;color:#c5c9d2}.wrap{max-width:1120px;margin:auto;padding:16px;display:grid;grid-template-columns:minmax(260px,420px) 1fr;gap:18px}.stage{width:100%;aspect-ratio:9/16;background:#171a22;border-radius:14px;overflow:hidden;box-shadow:0 12px 35px #0009;border:1px solid #343844}.stage canvas{width:100%;height:100%;display:block}.panel{background:#1a1d25;border:1px solid #353946;border-radius:14px;padding:16px;height:max-content}.panel h2{margin:0 0 6px;font-size:19px}.hint{font-size:12px;color:#b9bfcc;line-height:1.65}.panel label{display:block;font-size:13px;color:#e0e2e8;margin:13px 0 5px}.panel textarea,.panel input,.panel select{width:100%;border:1px solid #505664;background:#11141b;color:white;border-radius:8px;padding:10px;font:inherit}.panel textarea{min-height:190px;line-height:1.7}.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}button{border:0;border-radius:24px;padding:11px 15px;background:var(--gold);color:#171717;font-weight:800;font:inherit;font-size:13px}button.secondary{background:#444a58;color:white}button:disabled{opacity:.5}.meter{height:5px;background:#454957;margin-top:12px;border-radius:5px;overflow:hidden}.meter i{display:block;height:100%;width:0;background:var(--gold)}.status{font-size:12px;color:#f5c879;margin-top:8px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.grid label{margin-top:8px}.tag{display:inline-block;border:1px solid #555c6c;color:#f4c56f;border-radius:20px;padding:4px 9px;font-size:11px;margin:7px 4px 0 0}.filehint{font-size:11px;color:#aeb4c2;margin-top:5px}@media(max-width:720px){.wrap{grid-template-columns:1fr;max-width:490px}.stage{width:min(100%,360px);margin:auto}.panel{padding:14px}header span{max-width:130px;text-align:right}}
 </style></head><body>
-<header><b>MANTRA SOLAR</b><span>Automatic Marathi Video Maker</span></header>
+<header><b>☀ MANTRA SOLAR</b><span>3D CINEMATIC + MOTION GRAPHICS STUDIO</span></header>
 <main class="wrap"><div>
 <div class="stage"><canvas id="canvas" width="720" height="1280"></canvas></div>
-<div class="btns"><button id="preview">▶ Preview</button><button id="pause" class="secondary">Pause</button><button id="export">● Video Export</button></div><div class="meter"><i id="progress"></i></div><div id="status" class="status">Script टाका आणि “Scenes तयार करा” दाबा.</div>
-</div><section class="panel"><h2>तुमचा व्हिडिओ तयार करा</h2><p class="hint">प्रत्येक रिकाम्या ओळीतून नवीन Scene तयार होईल. पहिली ओळ Scene चे शीर्षक, पुढील ओळी त्याचा मजकूर होतील. Script मराठीत लिहा.</p>
-<label>Marathi Script</label><textarea id="script">तुमचे वीज बिल वाढत आहे का?
-घरावर सोलर बसवा आणि स्वतःची वीज तयार करा.
-योग्य सोलर क्षमता तुमच्या वीज वापरानुसार ठरवा.
-Mantra Solar देते साइट सर्वे, कोटेशन आणि इन्स्टॉलेशन मार्गदर्शन.
-आजच तुमचे लाईट बिल कमेंट करा आणि मोफत कोटेशन मिळवा!</textarea>
+<div class="btns"><button id="preview">▶ Preview</button><button id="pause" class="secondary">Pause</button><button id="export">● Video Export</button></div><div class="meter"><i id="progress"></i></div><div id="status" class="status">Script लिहा आणि Scenes तयार करा.</div>
+<div><span class="tag">3D-style Solar visuals</span><span class="tag">Animated infographics</span><span class="tag">9:16 vertical</span></div>
+</div><section class="panel"><h2>तुमचा Marathi Solar Video तयार करा</h2><p class="hint">प्रत्येक ओळ एक Scene. पहिला भाग शीर्षक म्हणून आणि उरलेला मजकूर माहिती म्हणून दिसेल. Auto Mix मध्ये 3D-style दृश्ये आणि infographic दृश्ये आलटून-पालटून येतील.</p>
+<label>Marathi Script</label><textarea id="script">वीज बिल खूप वाढत आहे का?
+घराच्या छतावर सोलर पॅनल बसवा आणि स्वतःची वीज तयार करा.
+On-Grid Solar मध्ये पॅनल, इन्व्हर्टर आणि नेट मीटर महत्त्वाचे असतात.
+वीजपुरवठा बंद झाला तर On-Grid सिस्टीम सुरक्षिततेसाठी बंद होते.
+Off-Grid सोलरमध्ये बॅटरीमध्ये वीज साठवता येते.
+तुमच्या घरासाठी योग्य सोलर क्षमता जाणून घ्या.
+Mantra Solar कडून मोफत कोटेशन आणि साइट व्हिजिट मिळवा.
+तुमचे लाईट बिल कमेंट करा किंवा 9226198204 वर संपर्क करा!</textarea>
 <div class="grid"><div><label>Brand Name</label><input id="brand" value="MANTRA SOLAR"></div><div><label>Contact</label><input id="phone" value="9226198204"></div></div>
 <label>Website / Location</label><input id="website" value="www.mantrasolar.in | छत्रपती संभाजीनगर • जालना">
-<label>प्रत्येक Scene कालावधी (सेकंद)</label><input id="seconds" type="number" min="2" max="15" value="5">
-<label>Voiceover Audio (ऐच्छिक MP3/WAV)</label><input id="audio" type="file" accept="audio/*">
+<div class="grid"><div><label>Visual Style</label><select id="style"><option value="mix">Auto Mix: 3D + Infographics</option><option value="3d">3D Cinematic Look</option><option value="motion">Motion Graphics</option></select></div><div><label>Scene कालावधी (सेकंद)</label><input id="seconds" type="number" min="3" max="15" value="6"></div></div>
+<label>Marathi Voiceover Audio (MP3/WAV)</label><input id="voice" type="file" accept="audio/*"><div class="filehint">तयार केलेला Marathi voiceover निवडा. आवाजाचा ट्रॅक व्हिडिओसोबत रेकॉर्ड होईल.</div>
+<label>Background Music (MP3/WAV)</label><input id="music" type="file" accept="audio/*"><div class="filehint">हलके instrumental music निवडा. Export करताना आवाज कमी ठेवा.</div>
+<label>Mantra Solar Logo (ऐच्छिक)</label><input id="logo" type="file" accept="image/*">
 <div class="btns"><button id="build">Scenes तयार करा</button><button id="downloadScript" class="secondary">Script TXT</button></div>
-<p class="hint">Export हा WebM फॉरमॅटमध्ये होतो (बहुतेक Android Chrome मध्ये चालतो). MP4 आवश्यक असल्यास WebM नंतर व्हिडिओ कन्व्हर्टर वापरा. आवाज जोडण्यासाठी आधी तयार केलेली Voiceover audio फाइल निवडा. केवळ बोलण्याचा मजकूर दिल्याने AI voice आपोआप तयार होत नाही.</p>
+<p class="hint"><b>महत्त्वाचे:</b> हा browser-based animated video maker आहे. यात 3D-सारखी depth असलेली vector animation आणि motion graphics तयार होतात; photorealistic 3D/AI video generation नाही. Voiceover आणि music फाइल तुम्ही upload करायची आहे. Export WebM मध्ये होतो; MP4 साठी नंतर converter वापरावा लागेल. Android Chrome मध्ये export करताना पेज उघडे ठेवा आणि स्क्रीन लॉक करू नका.</p>
 </section></main>
 <script>
-const c=document.getElementById('canvas'),ctx=c.getContext('2d'),$=id=>document.getElementById(id);let scenes=[],duration=5,playing=false,started=0,elapsed=0,raf=0,recorder=null,recorded=[],audioURL=null;
-function splitScript(){return $('script').value.split(/\n\s*\n|\n/).map(x=>x.trim()).filter(Boolean).map((line,i)=>{let parts=line.split(/[.!?।]/).map(x=>x.trim()).filter(Boolean);return {title:parts[0]||('Scene '+(i+1)),body:parts.slice(1).join('। ')||line,index:i}})}
-function build(){scenes=splitScript();duration=Math.max(2,Math.min(15,Number($('seconds').value)||5));elapsed=0;draw(0);$('status').textContent=scenes.length+' Scenes तयार. Preview किंवा Video Export दाबा.'}
-function wrap(text,max){let words=text.split(/\s+/),lines=[],line='';for(const w of words){let test=line?line+' '+w:w;if(ctx.measureText(test).width>max&&line){lines.push(line);line=w}else line=test}if(line)lines.push(line);return lines}
-function draw(t){if(!scenes.length)return;let ix=Math.min(scenes.length-1,Math.floor(t/duration)),s=scenes[ix],local=(t%duration)/duration;ctx.fillStyle='#f4efdf';ctx.fillRect(0,0,720,1280);
-let g=ctx.createRadialGradient(360,460,30,360,600,800);g.addColorStop(0,'#fffdf5');g.addColorStop(1,'#e8dfc9');ctx.fillStyle=g;ctx.fillRect(0,0,720,1280);
-ctx.fillStyle='#e5a04a';ctx.beginPath();ctx.arc(590,210,90+Math.sin(t*2)*7,0,Math.PI*2);ctx.fill();
-ctx.fillStyle='#bd7227';ctx.font='700 24px sans-serif';ctx.textAlign='center';ctx.fillText('घराघरात सौरऊर्जा',360,150);
-ctx.fillStyle='#e98722';ctx.fillRect(325,205,70,5);
-let title=s.title;ctx.fillStyle='#1c1c1c';ctx.font='900 58px sans-serif';let titleLines=wrap(title,590);let y=450-(titleLines.length-1)*38;titleLines.forEach(line=>{ctx.fillText(line,360,y);y+=76});
-ctx.fillStyle='#e98722';ctx.fillRect(305,y+5,110,5);y+=72;
-ctx.fillStyle='#3d3b35';ctx.font='600 34px sans-serif';let bodyLines=wrap(s.body,580);bodyLines.slice(0,7).forEach(line=>{ctx.fillText(line,360,y);y+=54});
-ctx.globalAlpha=.15;ctx.fillStyle='#e98722';ctx.font='900 250px sans-serif';ctx.fillText('☀',360,990);ctx.globalAlpha=1;
-ctx.fillStyle='#202020';ctx.font='900 27px sans-serif';ctx.fillText($('brand').value||'MANTRA SOLAR',360,1120);
-ctx.font='700 25px sans-serif';ctx.fillText($('phone').value,360,1165);
-ctx.font='20px sans-serif';ctx.fillText($('website').value,360,1205);
-ctx.fillStyle='#d8cbb0';ctx.fillRect(60,1240,600,5);ctx.fillStyle='#e98722';ctx.fillRect(60,1240,600*((ix+local)/scenes.length),5);
-$('progress').style.width=((ix+local)/scenes.length*100)+'%'}
-function tick(now){if(!playing)return;if(!started)started=now;elapsed=(now-started)/1000;let total=scenes.length*duration;if(elapsed>=total){elapsed=total;draw(elapsed-.01);playing=false;$('status').textContent='Preview पूर्ण.';return}draw(elapsed);raf=requestAnimationFrame(tick)}
+const c=document.getElementById('canvas'),ctx=c.getContext('2d'),$=id=>document.getElementById(id);let scenes=[],duration=6,playing=false,started=0,elapsed=0,raf=0,recorder=null,recorded=[],logoImg=null;
+const W=720,H=1280;
+function splitScript(){return $('script').value.split(/\n+/).map(x=>x.trim()).filter(Boolean).map((line,i)=>{let p=line.split(/[.!?।]/).map(x=>x.trim()).filter(Boolean);return{title:p[0]||('Scene '+(i+1)),body:p.slice(1).join('। ')||line,index:i}})}
+function build(){scenes=splitScript();duration=Math.max(3,Math.min(15,Number($('seconds').value)||6));elapsed=0;draw(0);$('status').textContent=scenes.length+' Scenes तयार. Preview करून तपासा.'}
+function rr(x,y,w,h,r,fill,stroke){ctx.beginPath();ctx.roundRect(x,y,w,h,r);ctx.fillStyle=fill;ctx.fill();if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=2;ctx.stroke()}}
+function textLines(str,max,font){ctx.font=font;let words=str.split(/\s+/),out=[],line='';for(const word of words){let test=line?line+' '+word:word;if(ctx.measureText(test).width>max&&line){out.push(line);line=word}else line=test}if(line)out.push(line);return out}
+function drawHouse(t){let bob=Math.sin(t*2)*7;ctx.save();ctx.translate(0,bob);
+ctx.shadowColor='#0009';ctx.shadowBlur=28;ctx.shadowOffsetY=20;
+ctx.fillStyle='#c8d2df';ctx.beginPath();ctx.moveTo(130,640);ctx.lineTo(360,500);ctx.lineTo(590,640);ctx.lineTo(590,900);ctx.lineTo(130,900);ctx.closePath();ctx.fill();
+ctx.shadowBlur=0;ctx.shadowOffsetY=0;
+ctx.fillStyle='#eef2f7';ctx.beginPath();ctx.moveTo(105,640);ctx.lineTo(360,475);ctx.lineTo(615,640);ctx.lineTo(570,670);ctx.lineTo(360,535);ctx.lineTo(150,670);ctx.closePath();ctx.fill();
+ctx.fillStyle='#52667f';ctx.fillRect(330,740,95,160);ctx.fillStyle='#8fc7e9';ctx.fillRect(185,715,100,95);ctx.fillRect(465,715,75,95);
+ctx.strokeStyle='#34465d';ctx.lineWidth=5;ctx.strokeRect(185,715,100,95);ctx.strokeRect(465,715,75,95);
+ctx.restore();
+// roof mounted perspective solar array
+ctx.save();ctx.shadowColor='#000a';ctx.shadowBlur=18;ctx.fillStyle='#142c49';ctx.beginPath();ctx.moveTo(180,620);ctx.lineTo(350,520);ctx.lineTo(540,620);ctx.lineTo(370,715);ctx.closePath();ctx.fill();ctx.shadowBlur=0;
+ctx.strokeStyle='#6ca7d9';ctx.lineWidth=3;for(let i=1;i<5;i++){let f=i/5;ctx.beginPath();ctx.moveTo(180+(350-180)*f,620+(520-620)*f);ctx.lineTo(370+(540-370)*f,715+(620-715)*f);ctx.stroke()}for(let i=1;i<4;i++){let f=i/4;ctx.beginPath();ctx.moveTo(180+(370-180)*f,620+(715-620)*f);ctx.lineTo(350+(540-350)*f,520+(620-520)*f);ctx.stroke()}ctx.restore();
+}
+function drawInfographic(t,s){let vals=[['सोलर पॅनल','वीज निर्मिती'],['इन्व्हर्टर','वीज रूपांतर'],['नेट मीटर','वीज मोजणी']];let active=Math.floor((t%duration)/duration*3);
+vals.forEach((v,i)=>{let y=500+i*155,x=95+(i%2)*18;let on=i===active;rr(x,y,530,112,20,on?'#fff2d8':'#ffffff','#e8a23d');ctx.fillStyle='#f29b32';ctx.beginPath();ctx.arc(x+58,y+55,30,0,Math.PI*2);ctx.fill();ctx.fillStyle='#242833';ctx.font='900 25px sans-serif';ctx.textAlign='left';ctx.fillText(i===0?'☀':i===1?'ϟ':'↔',x+43,y+64);ctx.fillStyle='#222630';ctx.font='800 29px sans-serif';ctx.fillText(v[0],x+110,y+48);ctx.font='500 20px sans-serif';ctx.fillStyle='#687080';ctx.fillText(v[1],x+110,y+80);});
+}
+function draw(t){if(!scenes.length)return;let ix=Math.min(scenes.length-1,Math.floor(t/duration)),s=scenes[ix],local=(t%duration)/duration,mode=$('style').value==='mix'?(ix%2?'motion':'3d'):$('style').value;
+let dark=mode==='3d';let grad=ctx.createLinearGradient(0,0,720,1280);if(dark){grad.addColorStop(0,'#101722');grad.addColorStop(.55,'#222b39');grad.addColorStop(1,'#080b12')}else{grad.addColorStop(0,'#fffdf7');grad.addColorStop(1,'#eee5d3')}ctx.fillStyle=grad;ctx.fillRect(0,0,W,H);
+if(dark){for(let i=0;i<7;i++){ctx.strokeStyle='rgba(246,181,68,.18)';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(i*150-120,0);ctx.lineTo(i*150+300,1280);ctx.stroke()}ctx.fillStyle='#f6b544';ctx.font='700 22px sans-serif';ctx.textAlign='left';ctx.fillText('SOLAR SERIES  •  MANTRA SOLAR',48,75);drawHouse(t)}else{ctx.fillStyle='#e89a36';ctx.beginPath();ctx.arc(600,170,78+Math.sin(t*2)*5,0,Math.PI*2);ctx.fill();ctx.fillStyle='#fff';ctx.font='900 70px sans-serif';ctx.textAlign='center';ctx.fillText('☀',600,194);ctx.fillStyle='#a86b2c';ctx.font='700 20px sans-serif';ctx.fillText('SMART ENERGY • SMART HOME',360,80);drawInfographic(t,s)}
+// title plate and copy
+let titleY=dark?240:275;ctx.textAlign='center';ctx.fillStyle=dark?'#f7f8fa':'#20242d';let titleFont='900 54px sans-serif';let tl=textLines(s.title,610,titleFont);ctx.font=titleFont;let ty=titleY-(tl.length-1)*34;tl.slice(0,3).forEach(line=>{ctx.fillText(line,360,ty);ty+=68});
+ctx.fillStyle='#f6b544';ctx.fillRect(270,ty+4,180,7);ty+=65;
+rr(48,ty,624,Math.min(210,Math.max(112,Math.ceil(textLines(s.body,560,'600 29px sans-serif').length)*46+45)),20,dark?'rgba(8,12,19,.82)':'rgba(255,255,255,.92)',dark?'#6d7788':'#e7b56d');
+ctx.fillStyle=dark?'#fff':'#343945';ctx.font='600 29px sans-serif';let bl=textLines(s.body,560,'600 29px sans-serif');let by=ty+55;bl.slice(0,4).forEach(line=>{ctx.fillText(line,360,by);by+=45});
+if(logoImg){ctx.drawImage(logoImg,275,1050,170,80)}else{ctx.fillStyle='#f6b544';ctx.font='900 30px sans-serif';ctx.fillText('☀',360,1090)}
+ctx.fillStyle=dark?'#fff':'#20242d';ctx.font='900 30px sans-serif';ctx.fillText($('brand').value||'MANTRA SOLAR',360,1160);ctx.font='800 26px sans-serif';ctx.fillText($('phone').value,360,1200);ctx.font='18px sans-serif';ctx.fillText($('website').value,360,1235);
+ctx.fillStyle=dark?'#505b6d':'#d8cbb5';ctx.fillRect(45,1252,630,5);ctx.fillStyle='#f6a632';ctx.fillRect(45,1252,630*((ix+local)/scenes.length),5);$('progress').style.width=((ix+local)/scenes.length*100)+'%'}
+function tick(now){if(!playing)return;if(!started)started=now;elapsed=(now-started)/1000;let total=scenes.length*duration;if(elapsed>=total){elapsed=total;draw(total-.01);playing=false;$('status').textContent='Preview पूर्ण.';return}draw(elapsed);raf=requestAnimationFrame(tick)}
 function play(){if(!scenes.length)build();playing=true;started=performance.now()-elapsed*1000;cancelAnimationFrame(raf);raf=requestAnimationFrame(tick)}
 $('build').onclick=build;$('preview').onclick=()=>{elapsed=0;play()};$('pause').onclick=()=>{playing=false;cancelAnimationFrame(raf);$('status').textContent='Paused.'};
+$('logo').onchange=e=>{let f=e.target.files[0];if(!f)return;logoImg=new Image();logoImg.onload=()=>draw(elapsed);logoImg.src=URL.createObjectURL(f)};
 $('export').onclick=async()=>{if(!scenes.length)build();if(!window.MediaRecorder||!c.captureStream){$('status').textContent='या Browser मध्ये Video Recording समर्थित नाही.';return}
-$('export').disabled=true;$('status').textContent='व्हिडिओ रेकॉर्ड होत आहे… कृपया पेज उघडे ठेवा.';let stream=c.captureStream(30),audioEl=null,audioCtx=null;
-if($('audio').files[0]){try{audioEl=new Audio();audioEl.src=URL.createObjectURL($('audio').files[0]);audioEl.crossOrigin='anonymous';audioCtx=new AudioContext();let src=audioCtx.createMediaElementSource(audioEl),dest=audioCtx.createMediaStreamDestination();src.connect(dest);src.connect(audioCtx.destination);dest.stream.getAudioTracks().forEach(track=>stream.addTrack(track));await audioCtx.resume();await audioEl.play()}catch(e){$('status').textContent='Audio जोडता आले नाही; silent video रेकॉर्ड करत आहे.'}}
-let mime=MediaRecorder.isTypeSupported('video/webm;codecs=vp9')?'video/webm;codecs=vp9':'video/webm';recorded=[];recorder=new MediaRecorder(stream,{mimeType:mime});recorder.ondataavailable=e=>{if(e.data.size)recorded.push(e.data)};recorder.onstop=()=>{let blob=new Blob(recorded,{type:'video/webm'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='mantra-solar-marathi-reel.webm';a.click();setTimeout(()=>URL.revokeObjectURL(url),60000);$('export').disabled=false;$('status').textContent='Export पूर्ण! WebM व्हिडिओ डाउनलोड झाला.';stream.getTracks().forEach(t=>t.stop());if(audioCtx)audioCtx.close()};
-recorder.start();elapsed=0;started=performance.now();playing=true;function recordFrame(now){if(!playing)return;elapsed=(now-started)/1000;let total=scenes.length*duration;if(elapsed>=total){draw(total-.01);playing=false;recorder.stop();if(audioEl)audioEl.pause();return}draw(elapsed);requestAnimationFrame(recordFrame)}requestAnimationFrame(recordFrame)};
+$('export').disabled=true;$('status').textContent='Video तयार होत आहे… पेज उघडे ठेवा आणि स्क्रीन लॉक करू नका.';let stream=c.captureStream(30),audioCtx=null,mediaEls=[];
+try{let tracks=[];for(const id of ['voice','music']){let file=$(id).files[0];if(!file)continue;let el=new Audio(URL.createObjectURL(file));el.loop=id==='music';el.volume=id==='music'?.22:1;mediaEls.push(el);if(!audioCtx)audioCtx=new AudioContext();let src=audioCtx.createMediaElementSource(el),dest=audioCtx.createMediaStreamDestination();src.connect(dest);src.connect(audioCtx.destination);dest.stream.getAudioTracks().forEach(x=>tracks.push(x))}tracks.forEach(x=>stream.addTrack(x));if(audioCtx)await audioCtx.resume();for(const el of mediaEls){try{await el.play()}catch(e){}}}catch(e){$('status').textContent='Audio जोडताना अडचण. Silent video export सुरू.'}
+let mime=MediaRecorder.isTypeSupported('video/webm;codecs=vp9')?'video/webm;codecs=vp9':'video/webm';recorded=[];recorder=new MediaRecorder(stream,{mimeType:mime});recorder.ondataavailable=e=>{if(e.data.size)recorded.push(e.data)};recorder.onstop=()=>{let blob=new Blob(recorded,{type:'video/webm'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='mantra-solar-3d-motion-reel.webm';a.click();setTimeout(()=>URL.revokeObjectURL(url),60000);$('export').disabled=false;$('status').textContent='Export पूर्ण! WebM व्हिडिओ डाउनलोड झाला.';stream.getTracks().forEach(x=>x.stop());mediaEls.forEach(x=>x.pause());if(audioCtx)audioCtx.close()};
+recorder.start();elapsed=0;started=performance.now();playing=true;function recordFrame(now){if(!playing)return;elapsed=(now-started)/1000;let total=scenes.length*duration;if(elapsed>=total){draw(total-.01);playing=false;recorder.stop();return}draw(elapsed);requestAnimationFrame(recordFrame)}requestAnimationFrame(recordFrame)};
 $('downloadScript').onclick=()=>{let blob=new Blob([$('script').value],{type:'text/plain;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='mantra-solar-script.txt';a.click();URL.revokeObjectURL(a.href)};
 build();
 </script></body></html>
