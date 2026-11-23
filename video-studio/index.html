@@ -9,12 +9,9 @@
 <main class="wrap"><div>
 <div class="stage"><canvas id="canvas" width="720" height="1280"></canvas></div>
 <div class="btns"><button id="preview">▶ Preview</button><button id="pause" class="secondary">Pause</button><button id="export">● Video Export</button></div><div class="meter"><i id="progress"></i></div><div id="status" class="status">Script लिहा आणि Scenes तयार करा.</div>
-<div><span class="tag">3D-style Solar visuals</span><span class="tag">Animated infographics</span><span class="tag">9:16 vertical</span></div>
-</div><section class="panel"><h2>तुमचा Marathi Solar Video तयार करा</h2><p class="hint">प्रत्येक ओळ एक Scene. पहिला भाग शीर्षक म्हणून आणि उरलेला मजकूर माहिती म्हणून दिसेल. Auto Mix मध्ये 3D-style दृश्ये आणि infographic दृश्ये आलटून-पालटून येतील.</p>
-<label>Video Template / प्रकार निवडा</label>
-<select id="template"><option value="cinematic">3D Cinematic Explainer</option><option value="infographic">Clean Motion Infographic</option><option value="compare">On-Grid vs Off-Grid Comparison</option><option value="subsidy">Subsidy / Savings Explainer</option><option value="lead">Lead Generation Advertisement</option></select>
-<div class="btns"><button id="loadTemplate" class="secondary">या प्रकारची Sample Script भरा</button></div>
-<p class="hint">प्रत्येक Template वेगळ्या दृश्यरचनेत Reel तयार करेल. Script स्वतः बदलू शकता आणि प्रत्येक वेळी वेगळा विषय निवडू शकता.</p>
+<div><span class="tag">Reference-style cinematic solar scenes</span><span class="tag">Animated energy effects</span><span class="tag">9:16 vertical</span></div>
+</div><section class="panel"><h2>तुमचा Marathi Solar Video तयार करा</h2><p class="hint">प्रत्येक ओळ एक Scene. पहिला भाग शीर्षक म्हणून आणि उरलेला मजकूर माहिती म्हणून दिसेल. प्रत्येक ओळीनुसार डार्क सिनेमॅटिक सोलर Scene तयार होईल. Reference Video सारखी 9:16 मांडणी वापरली जाईल.</p>
+<p class="hint"><b>Reference Video Style:</b> डार्क सिनेमॅटिक 3D-सारखे घर, छतावरील सोलर पॅनल, इन्व्हर्टर, वीज प्रवाह, गोल्डन लाईट आणि Scene नुसार बदलणारे मराठी शीर्षक/सबटायटल. प्रत्येक ओळ एक Scene म्हणून वापरली जाईल.</p>
 <label>Marathi Script</label><textarea id="script">वीज बिल खूप वाढत आहे का?
 घराच्या छतावर सोलर पॅनल बसवा आणि स्वतःची वीज तयार करा.
 On-Grid Solar मध्ये पॅनल, इन्व्हर्टर आणि नेट मीटर महत्त्वाचे असतात.
@@ -30,7 +27,7 @@ Mantra Solar कडून मोफत कोटेशन आणि साइट
 <label>Background Music (MP3/WAV)</label><input id="music" type="file" accept="audio/*"><div class="filehint">हलके instrumental music निवडा. Export करताना आवाज कमी ठेवा.</div>
 <label>Mantra Solar Logo (ऐच्छिक)</label><input id="logo" type="file" accept="image/*">
 <div class="btns"><button id="build">Scenes तयार करा</button><button id="downloadScript" class="secondary">Script TXT</button></div>
-<p class="hint"><b>महत्त्वाचे:</b> हा browser-based animated video maker आहे. यात 3D-सारखी depth असलेली vector animation आणि motion graphics तयार होतात; photorealistic 3D/AI video generation नाही. Voiceover आणि music फाइल तुम्ही upload करायची आहे. Export WebM मध्ये होतो; MP4 साठी नंतर converter वापरावा लागेल. Android Chrome मध्ये export करताना पेज उघडे ठेवा आणि स्क्रीन लॉक करू नका.</p>
+<p class="hint"><b>महत्त्वाचे:</b> हा browser-based animated video maker आहे. यात Reference-inspired cinematic 2.5D canvas animation तयार होते; photorealistic AI-generated 3D footage नाही. Voiceover आणि music फाइल तुम्ही upload करायची आहे. Export WebM मध्ये होतो; MP4 साठी नंतर converter वापरावा लागेल. Android Chrome मध्ये export करताना पेज उघडे ठेवा आणि स्क्रीन लॉक करू नका.</p>
 </section></main>
 <script>
 const c=document.getElementById('canvas'),ctx=c.getContext('2d'),$=id=>document.getElementById(id);let scenes=[],duration=6,playing=false,started=0,elapsed=0,raf=0,recorder=null,recorded=[],logoImg=null;
@@ -39,86 +36,72 @@ function splitScript(){return $('script').value.split(/\n+/).map(x=>x.trim()).fi
 function build(){scenes=splitScript();duration=Math.max(3,Math.min(15,Number($('seconds').value)||6));elapsed=0;draw(0);$('status').textContent=scenes.length+' Scenes तयार. Preview करून तपासा.'}
 function rr(x,y,w,h,r,fill,stroke){ctx.beginPath();ctx.roundRect(x,y,w,h,r);ctx.fillStyle=fill;ctx.fill();if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=2;ctx.stroke()}}
 function textLines(str,max,font){ctx.font=font;let words=str.split(/\s+/),out=[],line='';for(const word of words){let test=line?line+' '+word:word;if(ctx.measureText(test).width>max&&line){out.push(line);line=word}else line=test}if(line)out.push(line);return out}
-function drawHouse(t){let bob=Math.sin(t*2)*7;ctx.save();ctx.translate(0,bob);
-ctx.shadowColor='#0009';ctx.shadowBlur=28;ctx.shadowOffsetY=20;
-ctx.fillStyle='#c8d2df';ctx.beginPath();ctx.moveTo(130,640);ctx.lineTo(360,500);ctx.lineTo(590,640);ctx.lineTo(590,900);ctx.lineTo(130,900);ctx.closePath();ctx.fill();
-ctx.shadowBlur=0;ctx.shadowOffsetY=0;
-ctx.fillStyle='#eef2f7';ctx.beginPath();ctx.moveTo(105,640);ctx.lineTo(360,475);ctx.lineTo(615,640);ctx.lineTo(570,670);ctx.lineTo(360,535);ctx.lineTo(150,670);ctx.closePath();ctx.fill();
-ctx.fillStyle='#52667f';ctx.fillRect(330,740,95,160);ctx.fillStyle='#8fc7e9';ctx.fillRect(185,715,100,95);ctx.fillRect(465,715,75,95);
-ctx.strokeStyle='#34465d';ctx.lineWidth=5;ctx.strokeRect(185,715,100,95);ctx.strokeRect(465,715,75,95);
-ctx.restore();
-// roof mounted perspective solar array
-ctx.save();ctx.shadowColor='#000a';ctx.shadowBlur=18;ctx.fillStyle='#142c49';ctx.beginPath();ctx.moveTo(180,620);ctx.lineTo(350,520);ctx.lineTo(540,620);ctx.lineTo(370,715);ctx.closePath();ctx.fill();ctx.shadowBlur=0;
-ctx.strokeStyle='#6ca7d9';ctx.lineWidth=3;for(let i=1;i<5;i++){let f=i/5;ctx.beginPath();ctx.moveTo(180+(350-180)*f,620+(520-620)*f);ctx.lineTo(370+(540-370)*f,715+(620-715)*f);ctx.stroke()}for(let i=1;i<4;i++){let f=i/4;ctx.beginPath();ctx.moveTo(180+(370-180)*f,620+(715-620)*f);ctx.lineTo(350+(540-350)*f,520+(620-520)*f);ctx.stroke()}ctx.restore();
+function drawReferenceScene(t,s,ix){
+  const bob=Math.sin(t*1.35)*4, night=(/रात्र|अंधार|power cut|वीज बंद|off/i.test(s.title+' '+s.body));
+  // cinematic night sky and golden atmosphere
+  let bg=ctx.createLinearGradient(0,0,0,H);bg.addColorStop(0,'#090a10');bg.addColorStop(.58,'#242128');bg.addColorStop(1,'#08090d');ctx.fillStyle=bg;ctx.fillRect(0,0,W,H);
+  const glow=ctx.createRadialGradient(150+Math.sin(t*.2)*30,390,5,150,390,520);glow.addColorStop(0,'rgba(255,190,77,.22)');glow.addColorStop(1,'rgba(255,190,77,0)');ctx.fillStyle=glow;ctx.fillRect(0,0,W,850);
+  // golden diagonal beams and floating dust
+  ctx.save();ctx.globalAlpha=.3;for(let i=0;i<4;i++){ctx.strokeStyle='#f5c65a';ctx.lineWidth=2+i*.7;ctx.beginPath();ctx.moveTo(-80+i*160,0);ctx.lineTo(250+i*115,760);ctx.stroke()}ctx.restore();
+  for(let i=0;i<28;i++){let x=(i*83+Math.sin(t*.4+i)*25)%720,y=(i*137+t*13)%850;ctx.fillStyle='rgba(255,215,130,.35)';ctx.beginPath();ctx.arc(x,y,1.5+(i%3),0,Math.PI*2);ctx.fill()}
+  // floor
+  ctx.fillStyle='#111217';ctx.beginPath();ctx.moveTo(0,930);ctx.lineTo(720,835);ctx.lineTo(720,1120);ctx.lineTo(0,1190);ctx.closePath();ctx.fill();
+  ctx.save();ctx.translate(0,bob);
+  // house front/side walls with depth
+  ctx.shadowColor='#000';ctx.shadowBlur=30;ctx.shadowOffsetY=18;
+  ctx.fillStyle='#77777d';ctx.beginPath();ctx.moveTo(68,610);ctx.lineTo(390,520);ctx.lineTo(590,590);ctx.lineTo(590,930);ctx.lineTo(68,1010);ctx.closePath();ctx.fill();
+  ctx.shadowBlur=0;ctx.shadowOffsetY=0;
+  ctx.fillStyle='#aaa7a3';ctx.beginPath();ctx.moveTo(68,610);ctx.lineTo(390,520);ctx.lineTo(390,865);ctx.lineTo(68,1010);ctx.closePath();ctx.fill();
+  ctx.fillStyle='#c8c1b7';ctx.beginPath();ctx.moveTo(68,610);ctx.lineTo(390,520);ctx.lineTo(590,590);ctx.lineTo(270,680);ctx.closePath();ctx.fill();
+  // cutaway room and doorway
+  ctx.fillStyle='#39383b';ctx.beginPath();ctx.moveTo(115,700);ctx.lineTo(340,635);ctx.lineTo(340,910);ctx.lineTo(115,970);ctx.closePath();ctx.fill();
+  ctx.fillStyle='#24242a';ctx.fillRect(195,820,105,140);
+  ctx.fillStyle='#a87850';ctx.fillRect(220,900,95,12);ctx.fillRect(230,912,8,40);ctx.fillRect(300,912,8,40);
+  // roof fascia
+  ctx.fillStyle='#e3d5c0';ctx.beginPath();ctx.moveTo(45,600);ctx.lineTo(390,500);ctx.lineTo(620,580);ctx.lineTo(270,690);ctx.closePath();ctx.fill();
+  ctx.fillStyle='#8d8b8b';ctx.beginPath();ctx.moveTo(45,600);ctx.lineTo(270,690);ctx.lineTo(270,710);ctx.lineTo(45,620);ctx.closePath();ctx.fill();
+  // solar array in perspective
+  ctx.fillStyle='#10243d';ctx.beginPath();ctx.moveTo(85,575);ctx.lineTo(365,495);ctx.lineTo(550,558);ctx.lineTo(270,645);ctx.closePath();ctx.fill();
+  ctx.strokeStyle='#78b6e8';ctx.lineWidth=2;for(let i=1;i<6;i++){let q=i/6;ctx.beginPath();ctx.moveTo(85+(365-85)*q,575+(495-575)*q);ctx.lineTo(270+(550-270)*q,645+(558-645)*q);ctx.stroke()}for(let i=1;i<4;i++){let q=i/4;ctx.beginPath();ctx.moveTo(85+(270-85)*q,575+(645-575)*q);ctx.lineTo(365+(550-365)*q,495+(558-495)*q);ctx.stroke()}
+  // windows and wall-mounted inverter
+  ctx.fillStyle='#9ac5d9';ctx.fillRect(90,760,90,82);ctx.strokeStyle='#303a4a';ctx.lineWidth=7;ctx.strokeRect(90,760,90,82);
+  ctx.fillStyle='#d5d5d3';ctx.fillRect(390,735,75,130);ctx.fillStyle='#11151b';ctx.fillRect(472,720,55,105);ctx.fillStyle=night?'#ed3159':'#57d88b';ctx.beginPath();ctx.arc(499,747,6,0,Math.PI*2);ctx.fill();
+  // battery appears for battery-related scenes
+  if(/battery|बॅटरी|off.grid|हायब्रिड|hybrid/i.test(s.title+' '+s.body)){ctx.fillStyle='#222c39';ctx.fillRect(535,795,55,100);ctx.fillStyle='#68c6a4';ctx.fillRect(548,808,29,8);ctx.fillStyle='#d7e4e8';ctx.font='bold 12px sans-serif';ctx.fillText('BATTERY',562,920)}
+  ctx.restore();
+  // utility pole, cable and small person for scale
+  ctx.fillStyle='#55545a';ctx.fillRect(628,330,15,660);ctx.fillStyle='#77747a';ctx.fillRect(575,365,120,14);ctx.strokeStyle='#15151b';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(585,379);ctx.lineTo(505,720);ctx.stroke();
+  ctx.fillStyle='#e0a33d';ctx.beginPath();ctx.arc(615,600,15,0,Math.PI*2);ctx.fill();ctx.fillStyle='#bd632d';ctx.fillRect(603,615,25,62);
+  // animated energy pulse line
+  ctx.save();ctx.strokeStyle=night?'#f04c70':'#f7c85a';ctx.lineWidth=4;ctx.setLineDash([10,12]);ctx.lineDashOffset=-t*35;ctx.beginPath();ctx.moveTo(300,610);ctx.lineTo(420,690);ctx.lineTo(500,740);ctx.stroke();ctx.restore();
+  // callout label connected to inverter
+  const label=/net meter|मीटर/i.test(s.title+' '+s.body)?'NET METER':/battery|बॅटरी/i.test(s.title+' '+s.body)?'BATTERY SYSTEM':/panel|पॅनल|सोलर/i.test(s.title+' '+s.body)?'SOLAR PANEL':'INVERTER '+(night?'OFF':'ON');
+  rr(350,720,260,58,12,'#11131b','#e64b72');ctx.fillStyle=night?'#ff5579':'#f6c45d';ctx.beginPath();ctx.arc(375,749,7,0,Math.PI*2);ctx.fill();ctx.textAlign='left';ctx.fillStyle='#fff';ctx.font='800 20px sans-serif';ctx.fillText(label,394,756);
 }
+
 function drawInfographic(t,s){let vals=[['सोलर पॅनल','वीज निर्मिती'],['इन्व्हर्टर','वीज रूपांतर'],['नेट मीटर','वीज मोजणी']];let active=Math.floor((t%duration)/duration*3);
 vals.forEach((v,i)=>{let y=500+i*155,x=95+(i%2)*18;let on=i===active;rr(x,y,530,112,20,on?'#fff2d8':'#ffffff','#e8a23d');ctx.fillStyle='#f29b32';ctx.beginPath();ctx.arc(x+58,y+55,30,0,Math.PI*2);ctx.fill();ctx.fillStyle='#242833';ctx.font='900 25px sans-serif';ctx.textAlign='left';ctx.fillText(i===0?'☀':i===1?'ϟ':'↔',x+43,y+64);ctx.fillStyle='#222630';ctx.font='800 29px sans-serif';ctx.fillText(v[0],x+110,y+48);ctx.font='500 20px sans-serif';ctx.fillStyle='#687080';ctx.fillText(v[1],x+110,y+80);});
 }
 function draw(t){if(!scenes.length)return;let ix=Math.min(scenes.length-1,Math.floor(t/duration)),s=scenes[ix],local=(t%duration)/duration;
-const template=$('template')?.value||'cinematic';
-let mode=$('style').value==='mix'?(ix%2?'motion':'3d'):$('style').value;
-if(template==='infographic'||template==='subsidy')mode='motion';
-if(template==='cinematic'||template==='lead')mode='3d';
-const dark=mode==='3d';
-let grad=ctx.createLinearGradient(0,0,720,1280);
-if(dark){grad.addColorStop(0,'#090e18');grad.addColorStop(.55,'#1d2939');grad.addColorStop(1,'#080b12')}
-else{grad.addColorStop(0,'#fffdf7');grad.addColorStop(1,'#eee5d3')}
-ctx.fillStyle=grad;ctx.fillRect(0,0,W,H);
-if(dark){
-  for(let i=0;i<8;i++){ctx.strokeStyle='rgba(246,181,68,.13)';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(i*125-90,0);ctx.lineTo(i*125+280,1280);ctx.stroke()}
-  ctx.fillStyle='#f6b544';ctx.font='700 21px sans-serif';ctx.textAlign='left';ctx.fillText(template==='lead'?'MANTRA SOLAR • YOUR SOLAR PARTNER':'SOLAR SERIES • MANTRA SOLAR',48,75);
-  if(template==='lead'){
-    drawHouse(t);
-    // animated energy orbit and call-to-action visual
-    ctx.save();ctx.strokeStyle='#f6b544';ctx.lineWidth=5;ctx.setLineDash([12,10]);ctx.beginPath();ctx.ellipse(360,690,260,120,Math.sin(t)*.08,0,Math.PI*2);ctx.stroke();ctx.setLineDash([]);ctx.restore();
-  } else drawHouse(t);
-}else{
-  ctx.fillStyle='#e89a36';ctx.beginPath();ctx.arc(600,160,65+Math.sin(t*2)*5,0,Math.PI*2);ctx.fill();
-  ctx.fillStyle='#fff';ctx.font='900 58px sans-serif';ctx.textAlign='center';ctx.fillText('☀',600,180);
-  ctx.fillStyle='#a86b2c';ctx.font='700 20px sans-serif';
-  ctx.fillText(template==='subsidy'?'SOLAR SAVINGS • STEP BY STEP':'SMART ENERGY • SMART HOME',360,80);
-  if(template==='subsidy'){
-    const vals=[['सबसिडी','पात्रता तपासा'],['अर्ज','कागदपत्रे तयार ठेवा'],['इन्स्टॉलेशन','अधिकृत प्रक्रियेनुसार'],['नेट मीटर','वीज जोडणी पूर्ण']];
-    vals.forEach((v,i)=>{let y=390+i*150,progress=(local*4)%4,on=Math.floor(progress)===i;rr(72,y,576,108,20,on?'#ffe5b5':'#fff','#e4b36e');ctx.fillStyle='#e99b35';ctx.beginPath();ctx.arc(125,y+54,30,0,Math.PI*2);ctx.fill();ctx.fillStyle='#20242d';ctx.font='900 23px sans-serif';ctx.fillText(String(i+1),125,y+62);ctx.textAlign='left';ctx.font='800 27px sans-serif';ctx.fillText(v[0],180,y+45);ctx.font='500 19px sans-serif';ctx.fillStyle='#6c7280';ctx.fillText(v[1],180,y+77);ctx.textAlign='center'});
-  }else if(template==='compare'){
-    const cards=[{x:55,title:'ON-GRID',sub:'बॅटरीशिवाय',col:'#d9edff'},{x:375,title:'OFF-GRID',sub:'बॅटरीसह',col:'#ffe8c8'}];
-    cards.forEach((v,i)=>{rr(v.x,460,290,340,24,'#fff','#d8b77d');ctx.fillStyle=i?'#d98227':'#2875b9';ctx.font='900 27px sans-serif';ctx.fillText(v.title,v.x+145,510);ctx.fillStyle='#3a414d';ctx.font='700 20px sans-serif';ctx.fillText(v.sub,v.x+145,555);ctx.fillStyle=v.col;rr(v.x+42,590,206,115,14,v.col);ctx.fillStyle='#26364a';ctx.font='800 18px sans-serif';ctx.fillText(i?'🔋 Battery':'⚡ Grid',v.x+145,655)});
-  }else drawInfographic(t,s);
-}
-// headline / copy
-let titleY=dark?235:245;ctx.textAlign='center';ctx.fillStyle=dark?'#f7f8fa':'#20242d';
-let titleFont='900 49px sans-serif';let tl=textLines(s.title,610,titleFont);ctx.font=titleFont;let ty=titleY-(Math.min(tl.length,3)-1)*32;
-tl.slice(0,3).forEach(line=>{ctx.fillText(line,360,ty);ty+=62});
-ctx.fillStyle='#f6b544';ctx.fillRect(270,ty+2,180,7);ty+=60;
-let bodyLines=textLines(s.body,560,'600 27px sans-serif');
-let plateY=Math.min(ty,template==='subsidy'?990:900);
-let plateH=Math.min(190,Math.max(105,Math.ceil(bodyLines.length)*42+40));
-rr(48,plateY,624,plateH,20,dark?'rgba(8,12,19,.86)':'rgba(255,255,255,.94)',dark?'#6d7788':'#e7b56d');
-ctx.fillStyle=dark?'#fff':'#343945';ctx.font='600 27px sans-serif';let by=plateY+48;
-bodyLines.slice(0,3).forEach(line=>{ctx.fillText(line,360,by);by+=41});
-if(template==='lead'){
-  rr(110,plateY+plateH+20,500,64,18,'#f6b544');ctx.fillStyle='#171a20';ctx.font='900 24px sans-serif';ctx.fillText('मोफत कोटेशन • साइट व्हिजिट',360,plateY+plateH+61);
-}
-if(logoImg){ctx.drawImage(logoImg,275,1045,170,75)}else{ctx.fillStyle='#f6b544';ctx.font='900 30px sans-serif';ctx.fillText('☀',360,1090)}
-ctx.fillStyle=dark?'#fff':'#20242d';ctx.font='900 29px sans-serif';ctx.fillText($('brand').value||'MANTRA SOLAR',360,1160);ctx.font='800 25px sans-serif';ctx.fillText($('phone').value,360,1200);ctx.font='18px sans-serif';ctx.fillText($('website').value,360,1235);
-ctx.fillStyle=dark?'#505b6d':'#d8cbb5';ctx.fillRect(45,1252,630,5);ctx.fillStyle='#f6a632';ctx.fillRect(45,1252,630*((ix+local)/scenes.length),5);$('progress').style.width=((ix+local)/scenes.length*100)+'%'}
+drawReferenceScene(t,s,ix);
+ctx.textAlign='left';ctx.fillStyle='#f6c45d';ctx.font='700 20px sans-serif';ctx.fillText('☀ MANTRA SOLAR',42,55);
+rr(430,25,245,42,18,'#f5c85a');ctx.textAlign='center';ctx.fillStyle='#18191d';ctx.font='800 15px sans-serif';ctx.fillText('SOLAR EXPLAINER • '+String(ix+1).padStart(2,'0'),552,52);
+// Bold cinematic headline in upper third
+ctx.textAlign='center';let titleFont='900 48px sans-serif',lines=textLines(s.title,635,titleFont);ctx.font=titleFont;ctx.shadowColor='#000';ctx.shadowBlur=12;ctx.fillStyle='#fff';let y=190-(Math.min(lines.length,2)-1)*30;lines.slice(0,2).forEach(line=>{ctx.fillText(line,360,y);y+=62});ctx.shadowBlur=0;
+ctx.fillStyle='#f6c45d';ctx.fillRect(270,y+8,180,6);
+// lower subtitle on transparent dark band
+const bodyLines=textLines(s.body,600,'600 24px sans-serif').slice(0,3);rr(40,1015,640,145,16,'rgba(8,9,14,.82)','rgba(255,255,255,.12)');ctx.textAlign='center';ctx.fillStyle='#f4f0e8';ctx.font='600 24px sans-serif';let by=1060;bodyLines.forEach(line=>{ctx.fillText(line,360,by);by+=38});
+if(logoImg){ctx.drawImage(logoImg,275,1170,90,42)}ctx.fillStyle='#f6c45d';ctx.font='800 21px sans-serif';ctx.fillText($('brand').value||'MANTRA SOLAR',360,1200);ctx.fillStyle='#fff';ctx.font='700 20px sans-serif';ctx.fillText($('phone').value,360,1230);ctx.font='15px sans-serif';ctx.fillText($('website').value,360,1254);
+ctx.fillStyle='rgba(255,255,255,.25)';ctx.fillRect(35,1270,650,4);ctx.fillStyle='#f6b544';ctx.fillRect(35,1270,650*((ix+local)/scenes.length),4);$('progress').style.width=((ix+local)/scenes.length*100)+'%'}
 
 function tick(now){if(!playing)return;if(!started)started=now;elapsed=(now-started)/1000;let total=scenes.length*duration;if(elapsed>=total){elapsed=total;draw(total-.01);playing=false;$('status').textContent='Preview पूर्ण.';return}draw(elapsed);raf=requestAnimationFrame(tick)}
 function play(){if(!scenes.length)build();playing=true;started=performance.now()-elapsed*1000;cancelAnimationFrame(raf);raf=requestAnimationFrame(tick)}
-const templateScripts={
-cinematic:['वीज बिल वाढत आहे का?','छतावरील सोलर पॅनल सूर्यप्रकाशातून वीज तयार करतात.','इन्व्हर्टर तयार झालेली वीज घरासाठी वापरण्यास मदत करतो.','योग्य क्षमतेची सोलर सिस्टीम निवडणे महत्त्वाचे आहे.','Mantra Solar कडून मोफत साइट व्हिजिट आणि कोटेशन मिळवा.'],
-infographic:['घरगुती सोलर कसे काम करते?','सोलर पॅनल सूर्यप्रकाशातून DC वीज तयार करतात.','इन्व्हर्टर DC विजेचे AC विजेमध्ये रूपांतर करतो.','नेट मीटर आयात आणि निर्यात वीज मोजतो.','तुमच्या घरासाठी योग्य सिस्टीम जाणून घ्या.'],
-compare:['On-Grid की Off-Grid सोलर?','On-Grid सिस्टीम वीज ग्रिडसोबत काम करते.','Off-Grid सिस्टीममध्ये बॅटरीमध्ये ऊर्जा साठवता येते.','दोन्ही सिस्टीमचे फायदे आणि खर्च वेगळे असतात.','तुमच्या गरजेनुसार योग्य पर्याय निवडा.'],
-subsidy:['घरावर सोलर बसवण्यासाठी अनुदान मिळू शकते का?','योजनेची पात्रता आणि चालू नियम तपासा.','अधिकृत पोर्टलवर अर्ज आणि कागदपत्रांची प्रक्रिया पूर्ण करा.','इन्स्टॉलेशन आणि नेट मीटरची प्रक्रिया पूर्ण करा.','अद्ययावत माहितीसाठी Mantra Solar शी संपर्क करा.'],
-lead:['वीज बिल कमी करण्याचा विचार करत आहात?','तुमच्या घराच्या छतासाठी योग्य सोलर क्षमता जाणून घ्या.','आमची टीम तुमच्या गरजेनुसार मार्गदर्शन करेल.','मोफत कोटेशन आणि साइट व्हिजिटसाठी आजच संपर्क करा.','लाईट बिल कमेंट करा किंवा 9226198204 वर संपर्क करा.']
-};
-$('loadTemplate').onclick=()=>{$('script').value=templateScripts[$('template').value].join('\\n');build();$('status').textContent='नवीन Template ची Sample Script भरली आहे. हवी तशी Edit करा.'};
 $('build').onclick=build;$('preview').onclick=()=>{elapsed=0;play()};$('pause').onclick=()=>{playing=false;cancelAnimationFrame(raf);$('status').textContent='Paused.'};
 $('logo').onchange=e=>{let f=e.target.files[0];if(!f)return;logoImg=new Image();logoImg.onload=()=>draw(elapsed);logoImg.src=URL.createObjectURL(f)};
 $('export').onclick=async()=>{if(!scenes.length)build();if(!window.MediaRecorder||!c.captureStream){$('status').textContent='या Browser मध्ये Video Recording समर्थित नाही.';return}
 $('export').disabled=true;$('status').textContent='Video तयार होत आहे… पेज उघडे ठेवा आणि स्क्रीन लॉक करू नका.';let stream=c.captureStream(30),audioCtx=null,mediaEls=[];
 try{let tracks=[];for(const id of ['voice','music']){let file=$(id).files[0];if(!file)continue;let el=new Audio(URL.createObjectURL(file));el.loop=id==='music';el.volume=id==='music'?.22:1;mediaEls.push(el);if(!audioCtx)audioCtx=new AudioContext();let src=audioCtx.createMediaElementSource(el),dest=audioCtx.createMediaStreamDestination();src.connect(dest);src.connect(audioCtx.destination);dest.stream.getAudioTracks().forEach(x=>tracks.push(x))}tracks.forEach(x=>stream.addTrack(x));if(audioCtx)await audioCtx.resume();for(const el of mediaEls){try{await el.play()}catch(e){}}}catch(e){$('status').textContent='Audio जोडताना अडचण. Silent video export सुरू.'}
-let mime=MediaRecorder.isTypeSupported('video/webm;codecs=vp9')?'video/webm;codecs=vp9':'video/webm';recorded=[];recorder=new MediaRecorder(stream,{mimeType:mime});recorder.ondataavailable=e=>{if(e.data.size)recorded.push(e.data)};recorder.onstop=()=>{let blob=new Blob(recorded,{type:'video/webm'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='mantra-solar-3d-motion-reel.webm';a.click();setTimeout(()=>URL.revokeObjectURL(url),60000);$('export').disabled=false;$('status').textContent='Export पूर्ण! WebM व्हिडिओ डाउनलोड झाला.';stream.getTracks().forEach(x=>x.stop());mediaEls.forEach(x=>x.pause());if(audioCtx)audioCtx.close()};
+let mime=MediaRecorder.isTypeSupported('video/webm;codecs=vp9')?'video/webm;codecs=vp9':'video/webm';recorded=[];recorder=new MediaRecorder(stream,{mimeType:mime});recorder.ondataavailable=e=>{if(e.data.size)recorded.push(e.data)};recorder.onstop=()=>{let blob=new Blob(recorded,{type:'video/webm'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='mantra-solar-cinematic-reel.webm';a.click();setTimeout(()=>URL.revokeObjectURL(url),60000);$('export').disabled=false;$('status').textContent='Export पूर्ण! WebM व्हिडिओ डाउनलोड झाला.';stream.getTracks().forEach(x=>x.stop());mediaEls.forEach(x=>x.pause());if(audioCtx)audioCtx.close()};
 recorder.start();elapsed=0;started=performance.now();playing=true;function recordFrame(now){if(!playing)return;elapsed=(now-started)/1000;let total=scenes.length*duration;if(elapsed>=total){draw(total-.01);playing=false;recorder.stop();return}draw(elapsed);requestAnimationFrame(recordFrame)}requestAnimationFrame(recordFrame)};
 $('downloadScript').onclick=()=>{let blob=new Blob([$('script').value],{type:'text/plain;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='mantra-solar-script.txt';a.click();URL.revokeObjectURL(a.href)};
 build();
