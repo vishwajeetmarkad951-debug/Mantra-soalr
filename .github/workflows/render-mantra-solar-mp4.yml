@@ -1,4 +1,4 @@
-name: Render Mantra Solar MP4 with HyperFrames
+name: Render Mantra Solar MP4 with Node, ElevenLabs and FFmpeg
 'on':
   workflow_dispatch:
     inputs:
@@ -10,6 +10,11 @@ name: Render Mantra Solar MP4 with HyperFrames
         description: "Seconds per scene (3 to 15)"
         required: true
         default: "6"
+        type: string
+      elevenlabs_voice_id:
+        description: "ElevenLabs voice ID (optional; requires ELEVENLABS_API_KEY secret)"
+        required: false
+        default: ""
         type: string
 permissions:
   contents: read
@@ -32,7 +37,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y ffmpeg
-      - name: Build HyperFrames composition from Marathi script
+      - name: Build animated composition
         env:
           MANTRA_SCRIPT: ${{ inputs.script }}
           SCENE_SECONDS: ${{ inputs.seconds_per_scene }}
@@ -40,9 +45,42 @@ jobs:
           mkdir -p video-studio/hyperframes
           cd video-studio/hyperframes
           python3 ../render_hyperframes.py
-      - name: Render MP4
+      - name: Animate scenes with HyperFrames, Three.js and GSAP
         working-directory: video-studio/hyperframes
-        run: npx --yes hyperframes render --output mantra-solar.mp4
+        run: npx --yes hyperframes render --output silent-render.mp4
+      - name: Generate Marathi voiceover with ElevenLabs (optional)
+        if: ${{ inputs.elevenlabs_voice_id != '' }}
+        env:
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+          ELEVENLABS_VOICE_ID: ${{ inputs.elevenlabs_voice_id }}
+          MANTRA_SCRIPT: ${{ inputs.script }}
+        run: |
+          if [ -z "$ELEVENLABS_API_KEY" ]; then
+            echo "ELEVENLABS_API_KEY secret is missing; skipping voiceover."
+            exit 0
+          fi
+          python3 - <<'PY'
+          import json, os
+          payload = {
+            "text": os.environ["MANTRA_SCRIPT"],
+            "model_id": "eleven_multilingual_v2",
+            "voice_settings": {"stability": 0.48, "similarity_boost": 0.78, "style": 0.25, "use_speaker_boost": True}
+          }
+          with open("elevenlabs-request.json", "w", encoding="utf-8") as f:
+            json.dump(payload, f, ensure_ascii=False)
+          PY
+          curl --fail --silent --show-error -X POST "https://api.elevenlabs.io/v1/text-to-speech/$ELEVENLABS_VOICE_ID" \
+            -H "xi-api-key: $ELEVENLABS_API_KEY" -H "Content-Type: application/json" \
+            -H "Accept: audio/mpeg" --data-binary @elevenlabs-request.json \
+            -o video-studio/hyperframes/voiceover.mp3
+      - name: Render final H.264 MP4 with FFmpeg
+        working-directory: video-studio/hyperframes
+        run: |
+          if [ -s voiceover.mp3 ]; then
+            ffmpeg -y -i silent-render.mp4 -i voiceover.mp3 -map 0:v:0 -map 1:a:0 -c:v libx264 -pix_fmt yuv420p -preset medium -crf 20 -c:a aac -b:a 192k -shortest -movflags +faststart mantra-solar.mp4
+          else
+            ffmpeg -y -i silent-render.mp4 -c:v libx264 -pix_fmt yuv420p -preset medium -crf 20 -movflags +faststart mantra-solar.mp4
+          fi
       - name: Upload MP4
         uses: actions/upload-artifact@v4
         with:
