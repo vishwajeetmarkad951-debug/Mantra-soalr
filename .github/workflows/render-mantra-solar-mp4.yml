@@ -1,5 +1,9 @@
 name: Render Mantra Solar MP4 with Marathi Voice and FFmpeg
 'on':
+  push:
+    paths:
+      - ".github/workflows/render-mantra-solar-mp4.yml"
+      - "video-studio/render_hyperframes.py"
   workflow_dispatch:
     inputs:
       script:
@@ -44,10 +48,21 @@ jobs:
       - name: Build animated composition
         env:
           MANTRA_SCRIPT: ${{ inputs.script }}
-          SCENE_SECONDS: ${{ inputs.seconds_per_scene }}
+          SCENE_SECONDS: ${{ inputs.seconds_per_scene || '6' }}
         run: |
           mkdir -p video-studio/hyperframes
           cd video-studio/hyperframes
+          if [ -z "$MANTRA_SCRIPT" ]; then
+            MANTRA_SCRIPT=$(cat <<'SCRIPT'
+दर महिन्याला वाढणाऱ्या वीज बिलाला आता म्हणा अलविदा!
+PM Surya Ghar योजनेअंतर्गत घरावर सोलार बसवण्याची उत्तम संधी!
+पात्र घरगुती ग्राहकांना 3 किलोवॅटपर्यंत 78000 रुपयांपर्यंत केंद्रीय सबसिडी!
+स्वतःची वीज तयार करा आणि वीज बिलावरील खर्च कमी करा!
+आजच संपर्क करा Mantra Solar शी! मोफत कोटेशन आणि साइट व्हिजिटसाठी कॉल करा 9226198204!
+SCRIPT
+            )
+            export MANTRA_SCRIPT
+          fi
           python3 ../render_hyperframes.py
       - name: Animate scenes with HyperFrames, Three.js and GSAP
         working-directory: video-studio/hyperframes
@@ -55,7 +70,7 @@ jobs:
       - name: Generate free Marathi AI voiceover with Microsoft Edge TTS
         env:
           MANTRA_SCRIPT: ${{ inputs.script }}
-          MARATHI_VOICE: ${{ inputs.marathi_voice }}
+          MARATHI_VOICE: ${{ inputs.marathi_voice || 'mr-IN-AarohiNeural' }}
         working-directory: video-studio/hyperframes
         run: |
           edge-tts --voice "$MARATHI_VOICE" --text "$MANTRA_SCRIPT" --write-media voiceover.mp3
