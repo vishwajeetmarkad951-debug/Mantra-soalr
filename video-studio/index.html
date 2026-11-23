@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Mantra Solar Video Studio</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;600;700;900&display=swap');
+*{box-sizing:border-box}body{margin:0;background:#121212;color:#fff;font-family:'Noto Sans Devanagari',Arial,sans-serif}
+header{padding:16px 20px;background:#202020;display:flex;justify-content:space-between;align-items:center}
+header b{color:#f3a23b;letter-spacing:1px}.app{max-width:980px;margin:auto;padding:18px;display:grid;grid-template-columns:minmax(280px,405px) 1fr;gap:22px}
+.preview{width:100%;aspect-ratio:9/16;background:#f4f0df;color:#222;border-radius:16px;overflow:hidden;position:relative;box-shadow:0 12px 35px #0008}
+.scene{position:absolute;inset:0;padding:12% 9%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;opacity:0;transform:translateY(15px);transition:.6s;background:radial-gradient(ellipse,#fffdf4,#f0ead8)}
+.scene.active{opacity:1;transform:none}.scene h1{font-size:clamp(27px,7vw,42px);line-height:1.3;margin:8px 0}.scene h2{font-size:clamp(22px,5vw,32px);line-height:1.35;margin:8px 0}.scene p{font-size:clamp(14px,3.8vw,19px);line-height:1.7}.orange{color:#e98722}.eyebrow{font-size:12px;letter-spacing:2px;color:#bf681a;font-weight:900;margin-bottom:18px}.rule{height:3px;width:44px;background:#e98722;margin:16px auto}.stat{font-size:clamp(38px,11vw,64px);font-weight:900;color:#e98722;line-height:1.2}.brand{position:absolute;bottom:4%;width:100%;text-align:center;color:#bd742b;font-weight:900;letter-spacing:2px;font-size:14px;z-index:4}
+.panel{background:#222;border:1px solid #383838;border-radius:14px;padding:18px;height:max-content}.panel h2{margin-top:0}.panel label{display:block;color:#bbb;font-size:13px;margin:14px 0 6px}.panel input,.panel textarea{width:100%;border:1px solid #555;background:#151515;color:white;border-radius:8px;padding:10px;font:inherit}.panel textarea{min-height:70px}.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}button{border:0;border-radius:30px;padding:10px 15px;background:#f1a13b;color:#171717;font-weight:800}button.alt{background:#444;color:#fff}.hint{font-size:12px;color:#aaa;line-height:1.6}.progress{height:4px;background:#555;margin-top:12px}.progress i{display:block;height:100%;background:#f1a13b;width:0}
+@media(max-width:700px){.app{grid-template-columns:1fr;max-width:480px}.preview{max-height:72vh;width:auto;margin:auto;aspect-ratio:9/16;height:min(72vh,720px)}}
+</style></head>
+<body>
+<header><b>MANTRA SOLAR</b><span>मराठी Reel Studio</span></header>
+<main class="app">
+<div>
+<div class="preview" id="preview">
+<section class="scene active"><div class="eyebrow">घराघरात सौरऊर्जा</div><h1>वीज बिलाला<br><span class="orange">आता पर्याय!</span></h1><div class="rule"></div><p>तुमच्या घरासाठी सोलरचा योग्य पर्याय निवडा.</p></section>
+<section class="scene"><div class="eyebrow">सोलर का बसवावे?</div><div class="stat">☀</div><h2>सूर्यप्रकाशातून वीज</h2><p>स्वतःची वीज तयार करा आणि वीज बिलावरील अवलंबित्व कमी करण्याचा प्रयत्न करा.</p></section>
+<section class="scene"><div class="eyebrow">योग्य सिस्टीम निवडा</div><div class="stat">3 kW</div><h2>तुमच्या गरजेनुसार क्षमता</h2><p>वीज वापर आणि छताच्या जागेनुसार सोलर क्षमता ठरवा.</p></section>
+<section class="scene"><div class="eyebrow">Mantra Solar सेवा</div><h2>संपूर्ण सोलर मार्गदर्शन</h2><div class="rule"></div><p>साइट सर्वे • कोटेशन • इन्स्टॉलेशन • नेट मीटरिंग मार्गदर्शन</p></section>
+<section class="scene"><div class="eyebrow">आजच संपर्क करा</div><h1>तुमचे लाईट बिल<br><span class="orange">कमेंट करा!</span></h1><div class="rule"></div><h2>मोफत कोटेशन आणि साइट व्हिजिट</h2><p>9226198204<br>www.mantrasolar.in</p></section>
+<div class="brand">MANTRA SOLAR</div>
+</div>
+<div class="btns"><button id="play">▶ Play / Pause</button><button class="alt" id="prev">मागील Scene</button><button class="alt" id="next">पुढील Scene</button><button class="alt" id="reset">पुन्हा सुरू</button></div>
+<div class="progress"><i id="bar"></i></div>
+</div>
+<aside class="panel">
+<h2>🎬 तुमचा Marathi Video</h2>
+<p class="hint">प्रत्येक Scene सुमारे 5 सेकंद दाखवला जातो. मजकूर बदलण्यासाठी खालील मजकूर संपादित करा.</p>
+<label>पहिल्या Scene चे शीर्षक</label><input id="headline" value="वीज बिलाला|आता पर्याय!">
+<label>दुसऱ्या Scene चे शीर्षक</label><input id="second" value="सूर्यप्रकाशातून वीज">
+<label>तिसऱ्या Scene ची क्षमता</label><input id="capacity" value="3 kW">
+<label>चौथ्या Scene चा मजकूर</label><textarea id="service">साइट सर्वे • कोटेशन • इन्स्टॉलेशन • नेट मीटरिंग मार्गदर्शन</textarea>
+<label>संपर्क क्रमांक</label><input id="phone" value="9226198204">
+<label>वेबसाइट</label><input id="site" value="www.mantrasolar.in">
+<div class="btns"><button id="apply">Preview अपडेट करा</button><button id="fullscreen" class="alt">Full Screen</button></div>
+<p class="hint">मोबाइलवर Chrome मध्ये उघडा आणि स्क्रीन रेकॉर्डिंगने Preview रेकॉर्ड करा. MP4 थेट Export करण्यासाठी पुढील आवृत्तीत व्हिडिओ रेंडरिंग जोडता येईल.</p>
+</aside>
+</main>
+<script>
+const scenes=[...document.querySelectorAll('.scene')],bar=document.getElementById('bar');let i=0,playing=false,t=0,last=0;const durations=scenes.map(()=>5),total=durations.reduce((a,b)=>a+b,0);
+function show(n){i=(n+scenes.length)%scenes.length;scenes.forEach((s,k)=>s.classList.toggle('active',k===i));t=durations.slice(0,i).reduce((a,b)=>a+b,0);bar.style.width=t/total*100+'%'}
+function frame(now){if(playing){if(!last)last=now;let d=(now-last)/1000;last=now;t+=d;if(t>=total)t=0;let sum=0,n=0;for(;n<durations.length-1;n++){sum+=durations[n];if(t<sum)break}if(i!==n){i=n;scenes.forEach((s,k)=>s.classList.toggle('active',k===i))}bar.style.width=t/total*100+'%'}requestAnimationFrame(frame)}requestAnimationFrame(frame);
+document.getElementById('play').onclick=()=>{playing=!playing;last=0};document.getElementById('next').onclick=()=>show(i+1);document.getElementById('prev').onclick=()=>show(i-1);document.getElementById('reset').onclick=()=>{playing=false;show(0)};
+document.getElementById('apply').onclick=()=>{let h=document.getElementById('headline').value.split('|');scenes[0].querySelector('h1').innerHTML=(h[0]||'वीज बिलाला')+'<br><span class="orange">'+(h[1]||'आता पर्याय!')+'</span>';scenes[1].querySelector('h2').textContent=document.getElementById('second').value;scenes[2].querySelector('.stat').textContent=document.getElementById('capacity').value;scenes[3].querySelector('p').textContent=document.getElementById('service').value;scenes[4].querySelector('p').innerHTML=document.getElementById('phone').value+'<br>'+document.getElementById('site').value};
+document.getElementById('fullscreen').onclick=()=>document.getElementById('preview').requestFullscreen?.();
+</script></body></html>
