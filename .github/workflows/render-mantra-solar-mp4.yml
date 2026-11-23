@@ -86,3 +86,5 @@ SCRIPT
           path: video-studio/hyperframes/mantra-solar.mp4
           if-no-files-found: error
           retention-days: 7
+
+# Trigger PM Surya Ghar Marathi MP4 render from main branch push.
