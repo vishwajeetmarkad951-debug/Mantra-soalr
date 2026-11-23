@@ -1,0 +1,49 @@
+name: Render Mantra Solar MP4 with HyperFrames
+on:
+  workflow_dispatch:
+    inputs:
+      script:
+        description: "Paste Marathi script: one scene per line"
+        required: true
+        type: string
+      seconds_per_scene:
+        description: "Seconds per scene (3 to 15)"
+        required: true
+        default: "6"
+        type: string
+permissions:
+  contents: read
+actions: read
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Install FFmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+      - name: Build HyperFrames composition from Marathi script
+        env:
+          MANTRA_SCRIPT: ${{ inputs.script }}
+          SCENE_SECONDS: ${{ inputs.seconds_per_scene }}
+        run: |
+          mkdir -p video-studio/hyperframes
+          cd video-studio/hyperframes
+          python3 ../render_hyperframes.py
+      - name: Render MP4
+        working-directory: video-studio/hyperframes
+        run: npx --yes hyperframes render --output mantra-solar.mp4
+      - name: Upload MP4
+        uses: actions/upload-artifact@v4
+        with:
+          name: mantra-solar-mp4
+          path: video-studio/hyperframes/mantra-solar.mp4
+          if-no-files-found: error
+          retention-days: 7
